@@ -1,0 +1,566 @@
+---
+title: "Plastic Waste Dashboard"
+author: "Tyler Kinney, Greyson Ballesteros"
+format:
+  dashboard:
+    theme: journal
+    orientation: rows
+    scrolling: true
+    logo: plastic-logo.png
+    nav-buttons:
+      - icon: github
+        href: https://github.com/Tyler-Kinney/STAT-431-Project-1
+        aria-label: GitHub Repository
+      - icon: envelope
+        href: mailto:kinneytyler101@gmail.com
+        aria-label: Email
+execute:
+  echo: false
+  error: false
+  warning: false
+  message: false
+editor: source
+---
+
+```{r}
+#| label: packages-setup
+library(tidyverse)
+library(glue)
+library(here)
+library(jsonlite)
+library(purrr)
+library(ggplot2)
+library(ggridges)
+library(gt)
+library(scales)
+library(ggtext)
+library(tidytuesdayR)
+```
+
+```{r}
+#| label: load-plastic-data
+# Break Free From Plastic data from TidyTuesday
+# https://github.com/rfordatascience/tidytuesday/tree/main/data/2021/2021-01-26
+tuesdata <- tidytuesdayR::tt_load('2021-01-26')
+plastics <- tuesdata$plastics
+
+journal_colors <- c("#FFFFFF", "#F8D6D6", "#F1ADAD", "#EA8585", "#E35C5C", "#DE4C4C", "#D95C5C")
+```
+
+## Row {height="22%"}
+
+::: {.card}
+### Project Purpose
+
+This dashboard explores global plastic waste patterns using the Break Free From Plastic brand audit data from 2019 and 2020.
+
+**RQ1:** Has the composition of plastic types changed from 2019 to 2020?  
+**RQ2:** How does plastic waste differ across country income levels?
+:::
+
+::: {.card}
+### Data Sources
+
+The dashboard combines Break Free From Plastic data from TidyTuesday with GDP data, REST Countries API country-level information, and country code data used to connect countries to API records.
+:::
+
+## Row {height="70%"}
+
+### RQ1: Plastic Type Composition
+
+::: {.panel-tabset}
+
+#### Composition by Year
+
+```{r}
+#| label: rq1-composition-plot
+#| fig-alt: "Segmented bar graph displaying the distribution of plastic types in 2019 and 2020."
+#| fig-cap: "Proportion of plastic types used per year from 2019 to 2020."
+plastics |>
+  pivot_longer(cols = c(hdpe, ldpe, o, pet, pp, ps, pvc),
+               names_to = "plastic_type",
+               values_to = "plastic_amount") |>
+  filter(parent_company != "Grand Total",
+         !is.na(plastic_amount)) |>
+  group_by(year, plastic_type) |>
+  summarize(total = sum(plastic_amount, na.rm = TRUE),
+            .groups = "drop") |>
+  ggplot(aes(x = factor(year), y = total, fill = plastic_type)) +
+  geom_col(position = "fill") +
+  scale_y_continuous(labels = label_percent()) +
+  scale_fill_manual(values = journal_colors) +
+  labs(title = "Proportion of Plastic Types by Year",
+       x = "Year",
+       y = "Proportion",
+       fill = "Plastic Type") +
+  theme_light()
+```
+
+#### Slope Chart
+
+```{r}
+#| label: rq1-slope-chart
+#| fig-alt: "Slope chart showing changes in proportions of each plastic type used from 2019 to 2020."
+#| fig-cap: "Change in plastic type composition from 2019 to 2020."
+plastics |>
+  pivot_longer(cols = hdpe:pvc,
+               names_to = "type",
+               values_to = "count") |>
+  filter(parent_company != "Grand Total",
+         !is.na(count)) |>
+  group_by(year, type) |>
+  summarize(total = sum(count, na.rm = TRUE), .groups = "drop") |>
+  group_by(year) |>
+  mutate(prop = total / sum(total)) |>
+  ungroup() |>
+  select(year, type, prop) |>
+  pivot_wider(names_from = year,
+              values_from = prop,
+              names_prefix = "year_") |>
+  mutate(change = year_2020 - year_2019,
+         type = reorder(type, change)) |>
+  ggplot() +
+  geom_segment(aes(x = year_2019, xend = year_2020,
+                   y = type, yend = type),
+               color = "#333333",
+               linewidth = 1) +
+  geom_point(aes(x = year_2019, y = type), color = "grey", size = 3) +
+  geom_point(aes(x = year_2020, y = type), color = "#EB6864", size = 3) +
+  scale_x_continuous(labels = scales::label_percent()) +
+  labs(title = "Change in Plastic Type Composition",
+       subtitle = "(<span style='color:grey;'>2019</span> - <span style='color:#EB6864;'>2020</span>)",
+       x = "Proportion of total plastic",
+       y = "Plastic type") +
+  theme_light() +
+  theme(plot.subtitle = element_markdown())
+```
+
+#### Proportion Summary
+
+```{r}
+#| label: rq1-proportion-summary
+plastic_types <- c("hdpe", "ldpe", "pet", "pp", "ps", "pvc", "o")
+
+Prop_change <- function(type) {
+  plastics |>
+    filter(parent_company != "Grand Total") |>
+    group_by(year) |>
+    summarize(
+      total_type = sum(across(all_of(type)), na.rm = TRUE),
+      total_all = sum(grand_total, na.rm = TRUE),
+      .groups = "drop"
+    ) |>
+    mutate(prop = total_type / total_all) |>
+    arrange(year) |>
+    summarize(
+      plastic_type = type,
+      prop_2019 = prop[year == 2019],
+      prop_2020 = prop[year == 2020],
+      change = prop_2020 - prop_2019
+    )
+}
+
+map_dfr(plastic_types, Prop_change) |>
+  arrange(change) |>
+  gt() |>
+  tab_header(title = md("**Proportions of Each Plastic Type**"),
+             subtitle = "Change in proportion from 2019 to 2020") |>
+  fmt_percent(columns = c(change, prop_2019, prop_2020), decimals = 2) |>
+  cols_label(plastic_type = "Type",
+             prop_2019 = "2019",
+             prop_2020 = "2020",
+             change = "Change") |>
+  tab_options(heading.background.color = "#EB6864",
+              column_labels.background.color = "lightgrey",
+              row.striping.background_color = "lightgrey",
+              row.striping.include_table_body = TRUE) |>
+  tab_style(style = cell_text(weight = "bold"),
+            locations = cells_column_labels(everything())) |>
+  tab_style(style = cell_borders(sides = "bottom",
+                                 color = "#333333",
+                                 weight = px(2)),
+            locations = list(cells_column_labels(), cells_title(groups = "subtitle"))) |>
+  data_color(columns = change,
+             colors = col_numeric(
+               palette = c("lightgreen", "white", "#D95C5C"),
+               domain = NULL))
+```
+
+#### Year-Over-Year Summary
+
+```{r}
+#| label: rq1-yoy-summary
+plastics |>
+  filter(parent_company != "Grand Total") |>
+  pivot_longer(cols = c(hdpe, ldpe, o, pet, pp, ps, pvc, grand_total),
+               names_to = "plastic_type",
+               values_to = "amount") |>
+  group_by(plastic_type, year) |>
+  summarize(total = sum(amount, na.rm = TRUE), .groups = "drop") |>
+  arrange(plastic_type, year) |>
+  group_by(plastic_type) |>
+  mutate(`2019_2020_YoY` = (total - lag(total)) / lag(total)) |>
+  filter(!is.na(`2019_2020_YoY`)) |>
+  select(-total, -year) |>
+  arrange(`2019_2020_YoY`) |>
+  ungroup() |>
+  gt() |>
+  tab_header(title = md("**Year-Over-Year Increase in Plastic Use**"),
+             subtitle = "Calculated from 2020 compared with 2019") |>
+  fmt_percent(columns = `2019_2020_YoY`, decimals = 2) |>
+  cols_label(plastic_type = "Type",
+             `2019_2020_YoY` = "YoY Increase") |>
+  tab_options(heading.background.color = "#EB6864",
+              column_labels.background.color = "lightgrey",
+              row.striping.background_color = "lightgrey",
+              row.striping.include_table_body = TRUE) |>
+  tab_style(style = cell_text(weight = "bold"),
+            locations = cells_column_labels(everything())) |>
+  tab_style(style = cell_borders(sides = "bottom",
+                                 color = "#333333",
+                                 weight = px(2)),
+            locations = list(cells_column_labels(), cells_title(groups = "subtitle"))) |>
+  data_color(columns = `2019_2020_YoY`,
+             colors = col_numeric(
+               palette = c("lightgreen", "white", "#D95C5C"),
+               domain = NULL))
+```
+
+:::
+
+## Row {height="24%"}
+
+### Data Preparation Notes
+
+::: {.panel-tabset}
+
+#### Plastic Data Context
+
+The plastic data comes from Break Free From Plastic, courtesy of Sarah Sauve, and was accessed through TidyTuesday. The data include plastic type counts, parent company, country, and year. The 2019 and 2020 records are combined into one dataset.
+
+#### API and Country Data Context
+
+The REST Countries API data are published by the REST Countries API project and provide country-level information such as languages. The observational unit is a country. The API aggregates information from multiple sources and does not represent a single collection date.
+
+```{r}
+#| label: rq2-data-prep
+# GDP data should be saved in the project folder as GDP_data.csv
+GDP_2019_2020 <- read.csv(here("GDP_data.csv"), skip = 4) |>
+  select(Country.Name, X2019, X2020) |>
+  rename(`2019` = X2019, `2020` = X2020) |>
+  pivot_longer(
+    cols = c(`2019`, `2020`),
+    names_to = "year",
+    values_to = "gdp") |>
+  mutate(year = as.numeric(year)) |>
+  rename(country = Country.Name) |>
+  mutate(
+    country = recode(
+      country,
+      "Cote d'Ivoire" = "Cote D_ivoire",
+      "Ecuador" = "ECUADOR",
+      "Hong Kong SAR, China" = "Hong Kong",
+      "Korea, Rep." = "Korea",
+      "Nigeria" = "NIGERIA",
+      "Turkiye" = "Turkey",
+      "United Kingdom" = "United Kingdom of Great Britain & Northern Ireland",
+      "United States" = "United States of America",
+      "Viet Nam" = "Vietnam"
+    )
+  )
+
+plastic_summary <- plastics |>
+  filter(country != "EMPTY") |>
+  group_by(country, year) |>
+  summarize(total_plastic = sum(grand_total, na.rm = TRUE), .groups = "drop")
+
+combined_data <- plastic_summary |>
+  inner_join(GDP_2019_2020, by = c("country", "year"))
+
+plastics_clean <- plastics |>
+  filter(country != "EMPTY") |>
+  mutate(country = recode(
+    country,
+    "Taiwan_ Republic of China (ROC)" = "Taiwan, Province of China",
+    "Cote D_ivoire" = "Cote d'Ivoire",
+    "ECUADOR" = "Ecuador",
+    "NIGERIA" = "Nigeria",
+    "Netherlands" = "Netherlands, Kingdom of the",
+    "Tanzania" = "Tanzania, United Republic of",
+    "Turkey" = "Turkiye",
+    "United Kingdom" = "United Kingdom of Great Britain and Northern Ireland",
+    "Vietnam" = "Viet Nam",
+    "Korea" = "Korea, Republic of",
+    "United Kingdom of Great Britain & Northern Ireland" = "United Kingdom of Great Britain and Northern Ireland"
+  ))
+
+Country_Codes <- read.csv(here('Country-Codes.csv'),
+                          colClasses = c("character", "character")) |>
+  rename(country = name) |>
+  select(country, country.code)
+
+plastics_w_code <- plastics_clean |>
+  left_join(Country_Codes, by = "country")
+
+codes <- plastics_w_code |>
+  distinct(country.code) |>
+  filter(!is.na(country.code)) |>
+  pull(country.code)
+
+collect_api_data <- function(code) {
+  base_url <- 'https://restcountries.com/v3.1/alpha/'
+  ctry_url <- glue('{base_url}{code}')
+  ctry_data <- fromJSON(ctry_url)
+  
+  if (length(ctry_data) == 0) {
+    return(NA)
+  } else {
+    ctry_data |>
+      pull(languages)
+  }
+}
+
+Language_pivot <- function(list_df) {
+  list_df |>
+    pivot_longer(cols = everything(),
+                 names_to = 'Code',
+                 values_to = 'Language') |>
+    select(Language)
+}
+
+Combine_lang <- function(list_df) {
+  list_df |>
+    summarize(all_languages = paste(Language, collapse = ', '))
+}
+
+collect_lang <- function(list_df) {
+  list_df |>
+    pull(all_languages)
+}
+
+Languages <- map(codes, collect_api_data)
+Languages <- map(Languages, Language_pivot)
+Languages <- map(Languages, Combine_lang)
+
+languages_df <- tibble(
+  country.code = codes,
+  all_languages = map_chr(Languages, collect_lang)
+)
+
+Updated_Plastics <- plastics_w_code |>
+  filter(parent_company != "Grand Total") |>
+  inner_join(languages_df, by = 'country.code') |>
+  inner_join(combined_data, by = c('country', 'year')) |>
+  separate_wider_delim(cols = all_languages,
+                       delim = ", ",
+                       names = paste0("lang", 1:11),
+                       too_few = "align_start") |> 
+  mutate(wealth_group = factor(ntile(gdp, 5),
+                               labels = c("Low", "Lower-Middle", "Middle", "Upper-Middle", "High")),
+         plastic_per_gdp = total_plastic / gdp)
+```
+
+:::
+
+## Row {height="80%"}
+
+### RQ2: Wealth Group Patterns
+
+::: {.panel-tabset}
+
+#### Wealth Group Distribution
+
+```{r}
+#| label: rq2-ridgeline
+#| fig-alt: "Ridgeline plot displaying total plastic waste by wealth group."
+#| fig-cap: "Distribution of total plastic waste by country wealth group."
+Updated_Plastics |>
+  mutate(
+    wealth_group = factor(
+      ntile(gdp, 5),
+      labels = c("Low", "Lower-Middle", "Middle", "Upper-Middle", "High")
+    )
+  ) |>
+  ggplot(aes(x = total_plastic, y = wealth_group, fill = wealth_group)) +
+  geom_density_ridges(alpha = 0.7) +
+  scale_fill_manual(values = journal_colors[1:5]) +
+  labs(
+    title = "Distribution of Total Plastic Waste by Wealth Group",
+    x = "Total Plastic Waste",
+    y = "Wealth Group",
+    fill = "Wealth Group"
+  ) +
+  theme_minimal()
+```
+
+#### Plastic Types by Wealth Group
+
+```{r}
+#| label: rq2-plastic-type-wealth-plot
+#| fig-alt: "Segmented bar graph displaying the proportion of average plastic types by wealth group."
+#| fig-cap: "Proportion of average plastic types used by different wealth groups."
+plastics_country <- Updated_Plastics |>
+  group_by(country, year, gdp) |>   
+  summarize(
+    hdpe = sum(hdpe, na.rm = TRUE), 
+    ldpe = sum(ldpe, na.rm = TRUE),
+    o = sum(o, na.rm = TRUE),
+    pet = sum(pet, na.rm = TRUE),
+    pp = sum(pp, na.rm = TRUE),
+    ps = sum(ps, na.rm = TRUE),
+    pvc = sum(pvc, na.rm = TRUE),
+    .groups = "drop"               
+  ) |>
+  mutate(
+    wealth_group = factor(
+      ntile(gdp, 5),
+      labels = c("Low", "Lower-Middle", "Middle", "Upper-Middle", "High")
+    )
+  )
+
+plastics_country |>
+  pivot_longer(
+    cols = c(hdpe, ldpe, o, pet, pp, ps, pvc),
+    names_to = "plastic_type",      
+    values_to = "plastic_amount"    
+  ) |>
+  group_by(wealth_group, plastic_type) |>
+  summarize(
+    avg_plastic = mean(plastic_amount, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  ggplot(aes(x = wealth_group, y = avg_plastic, fill = plastic_type)) +
+  geom_col(position = "fill") +   
+  scale_fill_manual(values = journal_colors) +
+  scale_y_continuous(labels = label_percent()) +
+  labs(
+    title = "Proportion of Average Plastic Types by Wealth Group",
+    x = "Wealth Group",
+    y = "Proportion",
+    fill = "Plastic Type"
+  ) +
+  theme_minimal()
+```
+
+#### Wealth Group Summary
+
+```{r}
+#| label: rq2-wealth-group-summary
+years <- c(2019, 2020)
+
+plastic_proportion_one_year <- function(year_input) {
+  Updated_Plastics |>
+    filter(year == year_input) |>
+    group_by(wealth_group) |>
+    summarise(
+      total_plastic = sum(total_plastic, na.rm = TRUE),
+      .groups = "drop"
+    ) |>
+    mutate(
+      global_total = sum(total_plastic, na.rm = TRUE),
+      proportion = total_plastic / global_total,
+      year = year_input
+    ) |>
+    arrange(wealth_group)
+}
+
+table_data <- Updated_Plastics |>
+  distinct(year) |>
+  pull(year) |>
+  map_dfr(plastic_proportion_one_year)
+
+table_data |> 
+  group_by(year) |>
+  select(-global_total) |>
+  gt() |>
+  fmt_percent(columns = proportion) |>
+  fmt_number(columns = total_plastic, decimals = 0) |>
+  tab_header(title = md("**Proportion of Plastic Waste per Income Group**"),
+             subtitle = "By Year") |>
+  cols_label(wealth_group = "Wealth Group",
+             total_plastic = "Total Plastic",
+             proportion = "Proportion") |>
+  tab_options(row_group.background.color = "#EB6864",
+              heading.background.color = "#EB6864",
+              column_labels.background.color = "lightgrey",
+              row.striping.background_color = "lightgrey",
+              row.striping.include_table_body = TRUE) |>
+  tab_style(style = cell_text(weight = "bold"),
+            locations = cells_column_labels(everything())) |>
+  tab_style(style = cell_borders(sides = "bottom",
+                                 color = "#333333",
+                                 weight = px(2)),
+            locations = list(cells_column_labels(), cells_title(groups = "subtitle"))) |>
+  data_color(columns = proportion,
+             colors = col_numeric(
+               palette = c("#D95C5C", "white", "lightgreen"),
+               domain = NULL))
+```
+
+#### Chi-square Test
+
+```{r}
+#| label: rq2-chi-square-test
+#| fig-alt: "Table displaying chi-square test results for plastic type and income group."
+#| fig-cap: "Chi-square test of independence for plastic type distribution by wealth group."
+plastics_counts <- Updated_Plastics |>
+  mutate(
+    wealth_group = factor(
+      ntile(gdp, 5),
+      labels = c("Low", "Lower-Middle", "Middle", "Upper-Middle", "High")
+    ) 
+  ) |>
+  pivot_longer(
+    cols = c(hdpe, ldpe, o, pet, pp, ps, pvc),
+    names_to = "plastic_type",
+    values_to = "plastic_amount"
+  ) |>
+  group_by(wealth_group, plastic_type) |>
+  summarize(
+    total_plastic = sum(plastic_amount, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  pivot_wider(
+    names_from = plastic_type,
+    values_from = total_plastic
+  )
+
+plastics_matrix <- as.matrix(plastics_counts[, -1])
+rownames(plastics_matrix) <- plastics_counts$wealth_group
+
+chisq <- chisq.test(plastics_matrix)
+
+tibble(
+  statistic = chisq$statistic,
+  parameter = chisq$parameter,
+  p.value = chisq$p.value,
+  method = chisq$method) |>
+  mutate(p.value = if_else(p.value < 0.001, "< 0.001", as.character(p.value))) |>
+  select(method, parameter, statistic, p.value) |>
+  gt() |>
+  fmt_number(columns = c(statistic, parameter), decimals = 2) |>
+  cols_label(
+    statistic = "Chi-square statistic",
+    parameter = "Degrees of freedom",
+    p.value = "p-value",
+    method = "Test"
+  ) |>
+  tab_header(
+    title = md("**Chi-square Test of Plastic Waste Type by Income Group**"),
+    subtitle = "Testing whether plastic waste type distribution differs across income levels"
+  ) |>
+  tab_options(heading.background.color = "#EB6864",
+              column_labels.background.color = "lightgrey") |>
+  tab_style(style = cell_borders(sides = "bottom",
+                                 color = "#333333",
+                                 weight = px(2)),
+            locations = list(cells_column_labels(), cells_title(groups = "subtitle")))
+```
+
+:::
+
+## Row {height="18%"}
+
+### Interpretation Notes
+
+The first research question is best answered with composition-based summaries because the goal is to compare the mix of plastic types rather than raw totals alone. The second research question compares plastic waste patterns across income groups created from GDP rankings.
