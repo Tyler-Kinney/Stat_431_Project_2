@@ -237,7 +237,7 @@ plastics |>
 #### Plastic Data Context
 
 The plastic data comes from Break Free From Plastic, courtesy of Sarah Sauve, and was accessed through TidyTuesday. The data include plastic type counts, parent company, country, and year. The 2019 and 2020 records are combined into one dataset.
-
+ 
 #### API and Country Data Context
 
 The REST Countries API data are published by the REST Countries API project and provide country-level information such as languages. The observational unit is a country. The API aggregates information from multiple sources and does not represent a single collection date.
