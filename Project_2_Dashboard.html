@@ -37,9 +37,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="Project_2_Dashboard_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="Project_2_Dashboard_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="Project_2_Dashboard_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="Project_2_Dashboard_files/libs/bootstrap/bootstrap-f9cf9e2dc801ebb956e8f66b287c3c4d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="Project_2_Dashboard_files/libs/bootstrap/bootstrap-dark-f9cf9e2dc801ebb956e8f66b287c3c4d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="Project_2_Dashboard_files/libs/bootstrap/bootstrap-f9cf9e2dc801ebb956e8f66b287c3c4d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="Project_2_Dashboard_files/libs/bootstrap/bootstrap-c4618555419dccc818967a6c41346326.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="Project_2_Dashboard_files/libs/bootstrap/bootstrap-dark-c4618555419dccc818967a6c41346326.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="Project_2_Dashboard_files/libs/bootstrap/bootstrap-c4618555419dccc818967a6c41346326.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="Project_2_Dashboard_files/libs/quarto-dashboard/quarto-dashboard.js"></script>
 <script src="Project_2_Dashboard_files/libs/quarto-dashboard/stickythead.js"></script>
 
@@ -48,6 +48,15 @@ ul.task-list li input[type="checkbox"] {
 <script src="Project_2_Dashboard_files/libs/quarto-dashboard/web-components.js" type="module"></script>
 <script src="Project_2_Dashboard_files/libs/quarto-dashboard/components.js"></script>
 
+<link href="Project_2_Dashboard_files/libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+<script src="Project_2_Dashboard_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="Project_2_Dashboard_files/libs/plotly-binding-4.12.0/plotly.js"></script>
+<script src="Project_2_Dashboard_files/libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="Project_2_Dashboard_files/libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="Project_2_Dashboard_files/libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+<script src="Project_2_Dashboard_files/libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="Project_2_Dashboard_files/libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="Project_2_Dashboard_files/libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
 
 
 </head>
@@ -57,7 +66,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="quarto-dashboard-header">
 <nav class="navbar navbar-expand-md slim" data-bs-theme="dark">
   <div class="navbar-container container-fluid">
-    <button class="navbar-toggler hidden" type="button" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-controls="dashboard-collapse" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-controls="dashboard-collapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>    
 
@@ -71,15 +80,17 @@ ul.task-list li input[type="checkbox"] {
         <div class="navbar-author">Tyler Kinney, Greyson Ballesteros</div>
       </div>
     </div>
-<div class="quarto-dashboard-links"><a class="quarto-dashboard-link" href="https://github.com/Tyler-Kinney/STAT-431-Project-1" aria-label="GitHub Repository"><i class="bi bi-github"></i></a><a class="quarto-dashboard-link" href="mailto:kinneytyler101@gmail.com" aria-label="Email"><i class="bi bi-envelope"></i></a></div></div>
+<div id="dashboard-collapse" class="navbar-collapse collapse"><ul class="navbar-nav navbar-nav-scroll me-auto" role="tablist"><li class="nav-item" role="presentation"><a id="tab-plastic-analysis" class="nav-link active" data-bs-toggle="tab" role="tab" data-bs-target="#plastic-analysis" data-scrolling="true" href="#plastic-analysis" aria-controls="plastic-analysis" aria-selected="true"><span class="nav-link-text">Plastic Analysis</span></a></li><li class="nav-item" role="presentation"><a id="tab-china-case-study" class="nav-link" data-bs-toggle="tab" role="tab" data-bs-target="#china-case-study" data-scrolling="true" href="#china-case-study" aria-controls="china-case-study" aria-selected="false"><span class="nav-link-text">China Case Study</span></a></li></ul><div class="quarto-dashboard-links"><a class="quarto-dashboard-link" href="https://github.com/Tyler-Kinney/STAT-431-Project-1" aria-label="GitHub Repository"><i class="bi bi-github"></i></a><a class="quarto-dashboard-link" href="mailto:kinneytyler101@gmail.com" aria-label="Email"><i class="bi bi-envelope"></i></a></div></div></div>
 </nav>
 </header>
-<div class="page-layout-custom quarto-dashboard-content bslib-gap-spacing html-fill-container dashboard-scrolling">  
+<div class="page-layout-custom quarto-dashboard-content bslib-gap-spacing html-fill-container dashboard-scrolling quarto-dashboard-pages">  
 
-<div class="bslib-grid-item html-fill-item bslib-grid" data-layout="flow" style="display: grid; grid-template-rows: minmax(3em, 22fr) minmax(3em, 70fr) minmax(3em, 24fr) minmax(3em, 80fr) minmax(3em, 18fr); grid-auto-columns: minmax(0, 1fr);">
-<div class="bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr) minmax(3em, 1fr);
+<div class="bslib-grid-item html-fill-item tab-content bslib-grid" data-layout="flow" style="display: grid; grid-template-rows: minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div id="plastic-analysis" class="dashboard-page tab-pane show active html-fill-item html-fill-container" data-orientation="rows" aria-labelledby="tab-plastic-analysis">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 22fr) minmax(3em, 70fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr) minmax(3em, 1fr);
 grid-auto-rows: minmax(0, 1fr);">
-<div class="card bslib-card html-fill-container" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
 <div class="h4">
 Project
@@ -95,7 +106,7 @@ Purpose
     <span class="bslib-full-screen-enter badge rounded-pill">
         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
     </span>
-</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card bslib-card html-fill-container" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
 <div class="h4">
 Data
@@ -111,73 +122,35 @@ Sources
     </span>
 </bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
 </div>
-<div class="bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
 grid-auto-rows: minmax(0, 1fr);">
-<div class="bslib-grid" style="display: grid; grid-template-rows: minmax(3em, max-content); grid-auto-columns: minmax(0, 1fr);">
-<div class="card bslib-card html-fill-container" data-fill="false" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, max-content); grid-auto-columns: minmax(0, 1fr);">
+<div class="card html-fill-item html-fill-container bslib-card" data-fill="false" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
 <div class="panel-tabset html-fill-item html-fill-container">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Composition by Year</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Slope Chart</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Proportion Summary</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Year-Over-Year Summary</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Proportion Summary</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Slope Chart</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Year-Over-Year Summary</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Composition by Year</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">Plastic Type Output by Year</a></li></ul>
 <div class="tab-content html-fill-item html-fill-container">
 <div id="tabset-1-1" class="tab-pane active html-fill-item html-fill-container" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
 <div class="cell-output-display html-fill-item html-fill-container">
-<div class="quarto-figure quarto-figure-center html-fill-item html-fill-container">
-<figure class="figure">
-<p><img src="Project_2_Dashboard_files/figure-html/rq1-composition-plot-1.png" class="img-fluid figure-img" alt="Segmented bar graph displaying the distribution of plastic types in 2019 and 2020." width="768"></p>
-<figcaption>Proportion of plastic types used per year from 2019 to 2020.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
-    <template>Expand</template>
-    <span class="bslib-full-screen-enter badge rounded-pill">
-        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
-    </span>
-</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
-</div>
-<div id="tabset-1-2" class="tab-pane html-fill-item html-fill-container" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
-<div class="card-body html-fill-item html-fill-container">
-<div class="cell-output-display html-fill-item html-fill-container">
-<div class="quarto-figure quarto-figure-center html-fill-item html-fill-container">
-<figure class="figure">
-<p><img src="Project_2_Dashboard_files/figure-html/rq1-slope-chart-1.png" class="img-fluid figure-img" alt="Slope chart showing changes in proportions of each plastic type used from 2019 to 2020." width="768"></p>
-<figcaption>Change in plastic type composition from 2019 to 2020.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
-    <template>Expand</template>
-    <span class="bslib-full-screen-enter badge rounded-pill">
-        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
-    </span>
-</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
-</div>
-<div id="tabset-1-3" class="tab-pane html-fill-item html-fill-container" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
-<div class="card-body html-fill-item html-fill-container">
-<div class="cell-output-display html-fill-item html-fill-container">
-<div id="dekgohkkxd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;" class="html-fill-item html-fill-container">
-<style>#dekgohkkxd table {
+<div id="agxwpmaena" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;" class="html-fill-item html-fill-container">
+<style>#agxwpmaena table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dekgohkkxd thead, #dekgohkkxd tbody, #dekgohkkxd tfoot, #dekgohkkxd tr, #dekgohkkxd td, #dekgohkkxd th {
+#agxwpmaena thead, #agxwpmaena tbody, #agxwpmaena tfoot, #agxwpmaena tr, #agxwpmaena td, #agxwpmaena th {
   border-style: none;
 }
 
-#dekgohkkxd p {
+#agxwpmaena p {
   margin: 0;
   padding: 0;
 }
 
-#dekgohkkxd .gt_table {
+#agxwpmaena .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -203,12 +176,12 @@ grid-auto-rows: minmax(0, 1fr);">
   border-left-color: #D3D3D3;
 }
 
-#dekgohkkxd .gt_caption {
+#agxwpmaena .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dekgohkkxd .gt_title {
+#agxwpmaena .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -220,7 +193,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-bottom-width: 0;
 }
 
-#dekgohkkxd .gt_subtitle {
+#agxwpmaena .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -232,7 +205,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-top-width: 0;
 }
 
-#dekgohkkxd .gt_heading {
+#agxwpmaena .gt_heading {
   background-color: #EB6864;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -244,13 +217,13 @@ grid-auto-rows: minmax(0, 1fr);">
   border-right-color: #D3D3D3;
 }
 
-#dekgohkkxd .gt_bottom_border {
+#agxwpmaena .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dekgohkkxd .gt_col_headings {
+#agxwpmaena .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -265,7 +238,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-right-color: #D3D3D3;
 }
 
-#dekgohkkxd .gt_col_heading {
+#agxwpmaena .gt_col_heading {
   color: #333333;
   background-color: #D3D3D3;
   font-size: 100%;
@@ -285,7 +258,7 @@ grid-auto-rows: minmax(0, 1fr);">
   overflow-x: hidden;
 }
 
-#dekgohkkxd .gt_column_spanner_outer {
+#agxwpmaena .gt_column_spanner_outer {
   color: #333333;
   background-color: #D3D3D3;
   font-size: 100%;
@@ -297,15 +270,15 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 4px;
 }
 
-#dekgohkkxd .gt_column_spanner_outer:first-child {
+#agxwpmaena .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dekgohkkxd .gt_column_spanner_outer:last-child {
+#agxwpmaena .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dekgohkkxd .gt_column_spanner {
+#agxwpmaena .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -317,11 +290,11 @@ grid-auto-rows: minmax(0, 1fr);">
   width: 100%;
 }
 
-#dekgohkkxd .gt_spanner_row {
+#agxwpmaena .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dekgohkkxd .gt_group_heading {
+#agxwpmaena .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -347,7 +320,7 @@ grid-auto-rows: minmax(0, 1fr);">
   text-align: left;
 }
 
-#dekgohkkxd .gt_empty_group_heading {
+#agxwpmaena .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -362,15 +335,15 @@ grid-auto-rows: minmax(0, 1fr);">
   vertical-align: middle;
 }
 
-#dekgohkkxd .gt_from_md > :first-child {
+#agxwpmaena .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dekgohkkxd .gt_from_md > :last-child {
+#agxwpmaena .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dekgohkkxd .gt_row {
+#agxwpmaena .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -389,7 +362,7 @@ grid-auto-rows: minmax(0, 1fr);">
   overflow-x: hidden;
 }
 
-#dekgohkkxd .gt_stub {
+#agxwpmaena .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -402,7 +375,7 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#dekgohkkxd .gt_stub_row_group {
+#agxwpmaena .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -416,15 +389,15 @@ grid-auto-rows: minmax(0, 1fr);">
   vertical-align: top;
 }
 
-#dekgohkkxd .gt_row_group_first td {
+#agxwpmaena .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dekgohkkxd .gt_row_group_first th {
+#agxwpmaena .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dekgohkkxd .gt_summary_row {
+#agxwpmaena .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -434,16 +407,16 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#dekgohkkxd .gt_first_summary_row {
+#agxwpmaena .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dekgohkkxd .gt_first_summary_row.thick {
+#agxwpmaena .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dekgohkkxd .gt_last_summary_row {
+#agxwpmaena .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -453,7 +426,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-bottom-color: #D3D3D3;
 }
 
-#dekgohkkxd .gt_grand_summary_row {
+#agxwpmaena .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -463,7 +436,7 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#dekgohkkxd .gt_first_grand_summary_row {
+#agxwpmaena .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -473,7 +446,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-top-color: #D3D3D3;
 }
 
-#dekgohkkxd .gt_last_grand_summary_row_top {
+#agxwpmaena .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -483,11 +456,11 @@ grid-auto-rows: minmax(0, 1fr);">
   border-bottom-color: #D3D3D3;
 }
 
-#dekgohkkxd .gt_striped {
+#agxwpmaena .gt_striped {
   background-color: #D3D3D3;
 }
 
-#dekgohkkxd .gt_table_body {
+#agxwpmaena .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -496,7 +469,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-bottom-color: #D3D3D3;
 }
 
-#dekgohkkxd .gt_footnotes {
+#agxwpmaena .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -510,7 +483,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-right-color: #D3D3D3;
 }
 
-#dekgohkkxd .gt_footnote {
+#agxwpmaena .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -519,7 +492,7 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#dekgohkkxd .gt_sourcenotes {
+#agxwpmaena .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -533,7 +506,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-right-color: #D3D3D3;
 }
 
-#dekgohkkxd .gt_sourcenote {
+#agxwpmaena .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -541,72 +514,72 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#dekgohkkxd .gt_left {
+#agxwpmaena .gt_left {
   text-align: left;
 }
 
-#dekgohkkxd .gt_center {
+#agxwpmaena .gt_center {
   text-align: center;
 }
 
-#dekgohkkxd .gt_right {
+#agxwpmaena .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dekgohkkxd .gt_font_normal {
+#agxwpmaena .gt_font_normal {
   font-weight: normal;
 }
 
-#dekgohkkxd .gt_font_bold {
+#agxwpmaena .gt_font_bold {
   font-weight: bold;
 }
 
-#dekgohkkxd .gt_font_italic {
+#agxwpmaena .gt_font_italic {
   font-style: italic;
 }
 
-#dekgohkkxd .gt_super {
+#agxwpmaena .gt_super {
   font-size: 65%;
 }
 
-#dekgohkkxd .gt_footnote_marks {
+#agxwpmaena .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dekgohkkxd .gt_asterisk {
+#agxwpmaena .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dekgohkkxd .gt_indent_1 {
+#agxwpmaena .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dekgohkkxd .gt_indent_2 {
+#agxwpmaena .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dekgohkkxd .gt_indent_3 {
+#agxwpmaena .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dekgohkkxd .gt_indent_4 {
+#agxwpmaena .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dekgohkkxd .gt_indent_5 {
+#agxwpmaena .gt_indent_5 {
   text-indent: 25px;
 }
 
-#dekgohkkxd .katex-display {
+#agxwpmaena .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#dekgohkkxd div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#agxwpmaena div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -682,27 +655,46 @@ grid-auto-rows: minmax(0, 1fr);">
     </span>
 </bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
 </div>
-<div id="tabset-1-4" class="tab-pane html-fill-item html-fill-container" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<div id="tabset-1-2" class="tab-pane html-fill-item html-fill-container" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
 <div class="cell-output-display html-fill-item html-fill-container">
-<div id="uzqgvifhhu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;" class="html-fill-item html-fill-container">
-<style>#uzqgvifhhu table {
+<div class="quarto-figure quarto-figure-center html-fill-item html-fill-container">
+<figure class="figure">
+<p><img src="Project_2_Dashboard_files/figure-html/rq1-slope-chart-1.png" class="img-fluid figure-img" alt="Slope chart showing changes in proportions of each plastic type used from 2019 to 2020." width="768"></p>
+<figcaption>Change in plastic type composition from 2019 to 2020.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+<div id="tabset-1-3" class="tab-pane html-fill-item html-fill-container" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<div id="kesqovtmoc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;" class="html-fill-item html-fill-container">
+<style>#kesqovtmoc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#uzqgvifhhu thead, #uzqgvifhhu tbody, #uzqgvifhhu tfoot, #uzqgvifhhu tr, #uzqgvifhhu td, #uzqgvifhhu th {
+#kesqovtmoc thead, #kesqovtmoc tbody, #kesqovtmoc tfoot, #kesqovtmoc tr, #kesqovtmoc td, #kesqovtmoc th {
   border-style: none;
 }
 
-#uzqgvifhhu p {
+#kesqovtmoc p {
   margin: 0;
   padding: 0;
 }
 
-#uzqgvifhhu .gt_table {
+#kesqovtmoc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -728,12 +720,12 @@ grid-auto-rows: minmax(0, 1fr);">
   border-left-color: #D3D3D3;
 }
 
-#uzqgvifhhu .gt_caption {
+#kesqovtmoc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#uzqgvifhhu .gt_title {
+#kesqovtmoc .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -745,7 +737,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-bottom-width: 0;
 }
 
-#uzqgvifhhu .gt_subtitle {
+#kesqovtmoc .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -757,7 +749,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-top-width: 0;
 }
 
-#uzqgvifhhu .gt_heading {
+#kesqovtmoc .gt_heading {
   background-color: #EB6864;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -769,13 +761,13 @@ grid-auto-rows: minmax(0, 1fr);">
   border-right-color: #D3D3D3;
 }
 
-#uzqgvifhhu .gt_bottom_border {
+#kesqovtmoc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#uzqgvifhhu .gt_col_headings {
+#kesqovtmoc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -790,7 +782,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-right-color: #D3D3D3;
 }
 
-#uzqgvifhhu .gt_col_heading {
+#kesqovtmoc .gt_col_heading {
   color: #333333;
   background-color: #D3D3D3;
   font-size: 100%;
@@ -810,7 +802,7 @@ grid-auto-rows: minmax(0, 1fr);">
   overflow-x: hidden;
 }
 
-#uzqgvifhhu .gt_column_spanner_outer {
+#kesqovtmoc .gt_column_spanner_outer {
   color: #333333;
   background-color: #D3D3D3;
   font-size: 100%;
@@ -822,15 +814,15 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 4px;
 }
 
-#uzqgvifhhu .gt_column_spanner_outer:first-child {
+#kesqovtmoc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#uzqgvifhhu .gt_column_spanner_outer:last-child {
+#kesqovtmoc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#uzqgvifhhu .gt_column_spanner {
+#kesqovtmoc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -842,11 +834,11 @@ grid-auto-rows: minmax(0, 1fr);">
   width: 100%;
 }
 
-#uzqgvifhhu .gt_spanner_row {
+#kesqovtmoc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#uzqgvifhhu .gt_group_heading {
+#kesqovtmoc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -872,7 +864,7 @@ grid-auto-rows: minmax(0, 1fr);">
   text-align: left;
 }
 
-#uzqgvifhhu .gt_empty_group_heading {
+#kesqovtmoc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -887,15 +879,15 @@ grid-auto-rows: minmax(0, 1fr);">
   vertical-align: middle;
 }
 
-#uzqgvifhhu .gt_from_md > :first-child {
+#kesqovtmoc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#uzqgvifhhu .gt_from_md > :last-child {
+#kesqovtmoc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#uzqgvifhhu .gt_row {
+#kesqovtmoc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -914,7 +906,7 @@ grid-auto-rows: minmax(0, 1fr);">
   overflow-x: hidden;
 }
 
-#uzqgvifhhu .gt_stub {
+#kesqovtmoc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -927,7 +919,7 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#uzqgvifhhu .gt_stub_row_group {
+#kesqovtmoc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -941,15 +933,15 @@ grid-auto-rows: minmax(0, 1fr);">
   vertical-align: top;
 }
 
-#uzqgvifhhu .gt_row_group_first td {
+#kesqovtmoc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#uzqgvifhhu .gt_row_group_first th {
+#kesqovtmoc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#uzqgvifhhu .gt_summary_row {
+#kesqovtmoc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -959,16 +951,16 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#uzqgvifhhu .gt_first_summary_row {
+#kesqovtmoc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#uzqgvifhhu .gt_first_summary_row.thick {
+#kesqovtmoc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#uzqgvifhhu .gt_last_summary_row {
+#kesqovtmoc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -978,7 +970,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-bottom-color: #D3D3D3;
 }
 
-#uzqgvifhhu .gt_grand_summary_row {
+#kesqovtmoc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -988,7 +980,7 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#uzqgvifhhu .gt_first_grand_summary_row {
+#kesqovtmoc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -998,7 +990,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-top-color: #D3D3D3;
 }
 
-#uzqgvifhhu .gt_last_grand_summary_row_top {
+#kesqovtmoc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1008,11 +1000,11 @@ grid-auto-rows: minmax(0, 1fr);">
   border-bottom-color: #D3D3D3;
 }
 
-#uzqgvifhhu .gt_striped {
+#kesqovtmoc .gt_striped {
   background-color: #D3D3D3;
 }
 
-#uzqgvifhhu .gt_table_body {
+#kesqovtmoc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1021,7 +1013,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-bottom-color: #D3D3D3;
 }
 
-#uzqgvifhhu .gt_footnotes {
+#kesqovtmoc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1035,7 +1027,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-right-color: #D3D3D3;
 }
 
-#uzqgvifhhu .gt_footnote {
+#kesqovtmoc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1044,7 +1036,7 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#uzqgvifhhu .gt_sourcenotes {
+#kesqovtmoc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1058,7 +1050,7 @@ grid-auto-rows: minmax(0, 1fr);">
   border-right-color: #D3D3D3;
 }
 
-#uzqgvifhhu .gt_sourcenote {
+#kesqovtmoc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1066,72 +1058,72 @@ grid-auto-rows: minmax(0, 1fr);">
   padding-right: 5px;
 }
 
-#uzqgvifhhu .gt_left {
+#kesqovtmoc .gt_left {
   text-align: left;
 }
 
-#uzqgvifhhu .gt_center {
+#kesqovtmoc .gt_center {
   text-align: center;
 }
 
-#uzqgvifhhu .gt_right {
+#kesqovtmoc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#uzqgvifhhu .gt_font_normal {
+#kesqovtmoc .gt_font_normal {
   font-weight: normal;
 }
 
-#uzqgvifhhu .gt_font_bold {
+#kesqovtmoc .gt_font_bold {
   font-weight: bold;
 }
 
-#uzqgvifhhu .gt_font_italic {
+#kesqovtmoc .gt_font_italic {
   font-style: italic;
 }
 
-#uzqgvifhhu .gt_super {
+#kesqovtmoc .gt_super {
   font-size: 65%;
 }
 
-#uzqgvifhhu .gt_footnote_marks {
+#kesqovtmoc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#uzqgvifhhu .gt_asterisk {
+#kesqovtmoc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#uzqgvifhhu .gt_indent_1 {
+#kesqovtmoc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#uzqgvifhhu .gt_indent_2 {
+#kesqovtmoc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#uzqgvifhhu .gt_indent_3 {
+#kesqovtmoc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#uzqgvifhhu .gt_indent_4 {
+#kesqovtmoc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#uzqgvifhhu .gt_indent_5 {
+#kesqovtmoc .gt_indent_5 {
   text-indent: 25px;
 }
 
-#uzqgvifhhu .katex-display {
+#kesqovtmoc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#uzqgvifhhu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#kesqovtmoc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1195,6 +1187,41 @@ grid-auto-rows: minmax(0, 1fr);">
     </span>
 </bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
 </div>
+<div id="tabset-1-4" class="tab-pane html-fill-item html-fill-container" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="quarto-figure quarto-figure-center html-fill-item html-fill-container">
+<figure class="figure">
+<p><img src="Project_2_Dashboard_files/figure-html/rq1-composition-plot-1.png" class="img-fluid figure-img" alt="Segmented bar graph displaying the distribution of plastic types in 2019 and 2020." width="768"></p>
+<figcaption>Proportion of plastic types used per year from 2019 to 2020.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+<div id="tabset-1-5" class="tab-pane html-fill-item html-fill-container" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="plotly html-widget html-fill-item html-fill-container" id="htmlwidget-d7df299f7d6ca7c2f05e" style="width:100%;height:780px;"></div>
+<script type="application/json" data-for="htmlwidget-d7df299f7d6ca7c2f05e">{"x":{"data":[{"orientation":"v","width":[0.44999999999999996,0.45000000000000018,0.45000000000000018,0.45000000000000018,0.44999999999999929,0.44999999999999929,0.44999999999999929],"base":[0,0,0,0,0,0,0],"x":[0.77500000000000002,1.7749999999999999,2.7749999999999999,3.7749999999999999,4.7750000000000004,5.7750000000000004,6.7750000000000004],"y":[0.021713249974955211,0.092232387688680459,0.60356544611176732,0.2257479073039925,0.041907504350804113,0.01372221484468736,0.0011112897251130511],"text":["Year: 2019 <br>Plastic type: hdpe <br>Proportion: 2.2%","Year: 2019 <br>Plastic type: ldpe <br>Proportion: 9.2%","Year: 2019 <br>Plastic type: o <br>Proportion: 60.4%","Year: 2019 <br>Plastic type: pet <br>Proportion: 22.6%","Year: 2019 <br>Plastic type: pp <br>Proportion: 4.2%","Year: 2019 <br>Plastic type: ps <br>Proportion: 1.4%","Year: 2019 <br>Plastic type: pvc <br>Proportion: 0.1%"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(241,173,173,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"2019","legendgroup":"2019","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.45000000000000018,0.45000000000000018,0.45000000000000018,0.44999999999999973,0.44999999999999929,0.44999999999999929,0.44999999999999929],"base":[0,0,0,0,0,0,0],"x":[1.2250000000000001,2.2250000000000001,3.2250000000000001,4.2249999999999996,5.2249999999999996,6.2249999999999996,7.2249999999999996],"y":[0.04996041611283307,0.10943849306624677,0.38691423880623177,0.23926780033361475,0.18030387571535825,0.027644451974958444,0.0064707239907569429],"text":["Year: 2020 <br>Plastic type: hdpe <br>Proportion: 5.0%","Year: 2020 <br>Plastic type: ldpe <br>Proportion: 10.9%","Year: 2020 <br>Plastic type: o <br>Proportion: 38.7%","Year: 2020 <br>Plastic type: pet <br>Proportion: 23.9%","Year: 2020 <br>Plastic type: pp <br>Proportion: 18.0%","Year: 2020 <br>Plastic type: ps <br>Proportion: 2.8%","Year: 2020 <br>Plastic type: pvc <br>Proportion: 0.6%"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(235,104,100,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"2020","legendgroup":"2020","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":40.840182648401829,"r":7.3059360730593621,"b":37.260273972602747,"l":43.105022831050235},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"<b> Global Plastic Type Composition <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,7.5999999999999996],"tickmode":"array","ticktext":["hdpe","ldpe","o","pet","pp","ps","pvc"],"tickvals":[1,2,3,4.0000000000000009,5,6,7],"categoryorder":"array","categoryarray":["hdpe","ldpe","o","pet","pp","ps","pvc"],"nticks":null,"ticks":"outside","tickcolor":"rgba(179,179,179,1)","ticklen":3.6529680365296811,"tickwidth":0.33208800332088001,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(222,222,222,1)","gridwidth":0.33208800332088001,"zeroline":false,"anchor":"y","title":{"text":"Plastic Type","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.030178272305588366,0.63374371841735566],"tickmode":"array","ticktext":["0%","20%","40%","60%"],"tickvals":[0,0.20000000000000001,0.40000000000000002,0.60000000000000009],"categoryorder":"array","categoryarray":["0%","20%","40%","60%"],"nticks":null,"ticks":"outside","tickcolor":"rgba(179,179,179,1)","ticklen":3.6529680365296811,"tickwidth":0.33208800332088001,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(222,222,222,1)","gridwidth":0.33208800332088001,"zeroline":false,"anchor":"x","title":{"text":"Proportion","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"rgba(255,255,255,1)","line":{"color":"rgba(179,179,179,1)","width":0.66417600664176002,"linetype":"solid"},"yref":"paper","xref":"paper","layer":"below","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Year","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"159f51e54fff":{"x":{},"y":{},"fill":{},"text":{},"type":"bar"}},"cur_data":"159f51e54fff","visdat":{"159f51e54fff":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>Proportion of global plastic types in 2019 and 2020, showing changes in composition over time.</p>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
 </div>
 </div>
 </div>
@@ -1206,1096 +1233,40 @@ grid-auto-rows: minmax(0, 1fr);">
 </bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
 </div>
 </div>
-<div class="bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
+</div>
+</div>
+<div id="china-case-study" class="dashboard-page tab-pane grid-skip html-fill-item html-fill-container" data-orientation="rows" aria-labelledby="tab-china-case-study">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 18fr) minmax(3em, 82fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
 grid-auto-rows: minmax(0, 1fr);">
-<div class="bslib-grid" style="display: grid; grid-template-rows: minmax(3em, max-content); grid-auto-columns: minmax(0, 1fr);">
-<div class="card bslib-card html-fill-container" data-fill="false" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="h4">
+Why
+
+China?
+</div>
+<p>China was selected as a case of change because its plastic composition shifts substantially from 2019 to 2020, particularly with a large increase in the “other” plastic category and a decline in PET. These changes highlight how plastic waste composition can vary over time within a single country. Additionally, we were interested in investigating how the COVID-19 pandemic may have impacted China specifically and influenced patterns of plastic usage and waste.</p>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="card html-fill-item html-fill-container bslib-card" data-fill="false" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
 <div class="panel-tabset html-fill-item html-fill-container">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Plastic Data Context</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">API and Country Data Context</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">China Composition</a></li></ul>
 <div class="tab-content html-fill-item html-fill-container">
 <div id="tabset-2-1" class="tab-pane active html-fill-item html-fill-container" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p>The plastic data comes from Break Free From Plastic, courtesy of Sarah Sauve, and was accessed through TidyTuesday. The data include plastic type counts, parent company, country, and year. The 2019 and 2020 records are combined into one dataset.</p>
-</div>
-<div id="tabset-2-2" class="tab-pane html-fill-item html-fill-container" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<p>The REST Countries API data are published by the REST Countries API project and provide country-level information such as languages. The observational unit is a country. The API aggregates information from multiple sources and does not represent a single collection date.</p>
-</div>
-</div>
-</div>
-</div>
-<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
-    <template>Expand</template>
-    <span class="bslib-full-screen-enter badge rounded-pill">
-        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
-    </span>
-</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
-</div>
-</div>
-<div class="bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
-grid-auto-rows: minmax(0, 1fr);">
-<div class="bslib-grid" style="display: grid; grid-template-rows: minmax(3em, max-content); grid-auto-columns: minmax(0, 1fr);">
-<div class="card bslib-card html-fill-container" data-fill="false" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
-<div class="card-body html-fill-item html-fill-container">
-<div class="panel-tabset html-fill-item html-fill-container">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Wealth Group Distribution</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Plastic Types by Wealth Group</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false" href="">Wealth Group Summary</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false" href="">Chi-square Test</a></li></ul>
-<div class="tab-content html-fill-item html-fill-container">
-<div id="tabset-3-1" class="tab-pane active html-fill-item html-fill-container" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
 <div class="cell-output-display html-fill-item html-fill-container">
-<div class="quarto-figure quarto-figure-center html-fill-item html-fill-container">
-<figure class="figure">
-<p><img src="Project_2_Dashboard_files/figure-html/rq2-ridgeline-1.png" class="img-fluid figure-img" alt="Ridgeline plot displaying total plastic waste by wealth group." width="768"></p>
-<figcaption>Distribution of total plastic waste by country wealth group.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
-    <template>Expand</template>
-    <span class="bslib-full-screen-enter badge rounded-pill">
-        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
-    </span>
-</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
-</div>
-<div id="tabset-3-2" class="tab-pane html-fill-item html-fill-container" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
-<div class="card-body html-fill-item html-fill-container">
-<div class="cell-output-display html-fill-item html-fill-container">
-<div class="quarto-figure quarto-figure-center html-fill-item html-fill-container">
-<figure class="figure">
-<p><img src="Project_2_Dashboard_files/figure-html/rq2-plastic-type-wealth-plot-1.png" class="img-fluid figure-img" alt="Segmented bar graph displaying the proportion of average plastic types by wealth group." width="768"></p>
-<figcaption>Proportion of average plastic types used by different wealth groups.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
-    <template>Expand</template>
-    <span class="bslib-full-screen-enter badge rounded-pill">
-        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
-    </span>
-</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
-</div>
-<div id="tabset-3-3" class="tab-pane html-fill-item html-fill-container" role="tabpanel" aria-labelledby="tabset-3-3-tab">
-<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
-<div class="card-body html-fill-item html-fill-container">
-<div class="cell-output-display html-fill-item html-fill-container">
-<div id="wnmbiuspat" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;" class="html-fill-item html-fill-container">
-<style>#wnmbiuspat table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#wnmbiuspat thead, #wnmbiuspat tbody, #wnmbiuspat tfoot, #wnmbiuspat tr, #wnmbiuspat td, #wnmbiuspat th {
-  border-style: none;
-}
-
-#wnmbiuspat p {
-  margin: 0;
-  padding: 0;
-}
-
-#wnmbiuspat .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#wnmbiuspat .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#wnmbiuspat .gt_title {
-  color: #FFFFFF;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#wnmbiuspat .gt_subtitle {
-  color: #FFFFFF;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#wnmbiuspat .gt_heading {
-  background-color: #EB6864;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#wnmbiuspat .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#wnmbiuspat .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#wnmbiuspat .gt_col_heading {
-  color: #333333;
-  background-color: #D3D3D3;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#wnmbiuspat .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #D3D3D3;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#wnmbiuspat .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#wnmbiuspat .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#wnmbiuspat .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#wnmbiuspat .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#wnmbiuspat .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #FFFFFF;
-  background-color: #EB6864;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#wnmbiuspat .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #FFFFFF;
-  background-color: #EB6864;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#wnmbiuspat .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#wnmbiuspat .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#wnmbiuspat .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#wnmbiuspat .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#wnmbiuspat .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#wnmbiuspat .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#wnmbiuspat .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#wnmbiuspat .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#wnmbiuspat .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#wnmbiuspat .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#wnmbiuspat .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#wnmbiuspat .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#wnmbiuspat .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#wnmbiuspat .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#wnmbiuspat .gt_striped {
-  background-color: #D3D3D3;
-}
-
-#wnmbiuspat .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#wnmbiuspat .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#wnmbiuspat .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#wnmbiuspat .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#wnmbiuspat .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#wnmbiuspat .gt_left {
-  text-align: left;
-}
-
-#wnmbiuspat .gt_center {
-  text-align: center;
-}
-
-#wnmbiuspat .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#wnmbiuspat .gt_font_normal {
-  font-weight: normal;
-}
-
-#wnmbiuspat .gt_font_bold {
-  font-weight: bold;
-}
-
-#wnmbiuspat .gt_font_italic {
-  font-style: italic;
-}
-
-#wnmbiuspat .gt_super {
-  font-size: 65%;
-}
-
-#wnmbiuspat .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#wnmbiuspat .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#wnmbiuspat .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#wnmbiuspat .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#wnmbiuspat .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#wnmbiuspat .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#wnmbiuspat .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#wnmbiuspat .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#wnmbiuspat div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
-<thead>
-<tr class="gt_heading header">
-<td colspan="3" class="gt_heading gt_title gt_font_normal"><strong>Proportion of Plastic Waste per Income Group</strong></td>
-</tr>
-<tr class="gt_heading even">
-<td colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: #333333">By Year</td>
-</tr>
-<tr class="gt_col_headings header">
-<th id="wealth_group" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" style="font-weight: bold; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: #333333" scope="col">Wealth Group</th>
-<th id="total_plastic" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: #333333" scope="col">Total Plastic</th>
-<th id="proportion" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: #333333" scope="col">Proportion</th>
-</tr>
-</thead>
-<tbody class="gt_table_body">
-<tr class="gt_group_heading_row odd">
-<th colspan="3" id="2019" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">2019</th>
-</tr>
-<tr class="gt_row_group_first even">
-<td class="gt_row gt_center" headers="2019  wealth_group">Low</td>
-<td class="gt_row gt_right" headers="2019  total_plastic">12,276,122</td>
-<td class="gt_row gt_right" headers="2019  proportion" style="background-color: #E7837F; color: #FFFFFF">11.74%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center gt_striped" headers="2019  wealth_group">Lower-Middle</td>
-<td class="gt_row gt_right gt_striped" headers="2019  total_plastic">34,015,664</td>
-<td class="gt_row gt_right gt_striped" headers="2019  proportion" style="background-color: #9CF09B; color: #000000">32.52%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers="2019  wealth_group">Middle</td>
-<td class="gt_row gt_right" headers="2019  total_plastic">35,264,718</td>
-<td class="gt_row gt_right" headers="2019  proportion" style="background-color: #90EE90; color: #000000">33.72%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center gt_striped" headers="2019  wealth_group">Upper-Middle</td>
-<td class="gt_row gt_right gt_striped" headers="2019  total_plastic">13,689,332</td>
-<td class="gt_row gt_right gt_striped" headers="2019  proportion" style="background-color: #ED9590; color: #000000">13.09%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center" headers="2019  wealth_group">High</td>
-<td class="gt_row gt_right" headers="2019  total_plastic">9,346,974</td>
-<td class="gt_row gt_right" headers="2019  proportion" style="background-color: #D95D5D; color: #FFFFFF">8.94%</td>
-</tr>
-<tr class="gt_group_heading_row odd">
-<th colspan="3" id="2020" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">2020</th>
-</tr>
-<tr class="gt_row_group_first even">
-<td class="gt_row gt_center gt_striped" headers="2020  wealth_group">Low</td>
-<td class="gt_row gt_right gt_striped" headers="2020  total_plastic">2,973,728</td>
-<td class="gt_row gt_right gt_striped" headers="2020  proportion" style="background-color: #D95C5C; color: #FFFFFF">8.85%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="2020  wealth_group">Lower-Middle</td>
-<td class="gt_row gt_right" headers="2020  total_plastic">9,857,121</td>
-<td class="gt_row gt_right" headers="2020  proportion" style="background-color: #BAF5B7; color: #000000">29.33%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center gt_striped" headers="2020  wealth_group">Middle</td>
-<td class="gt_row gt_right gt_striped" headers="2020  total_plastic">8,466,046</td>
-<td class="gt_row gt_right gt_striped" headers="2020  proportion" style="background-color: #DFFADC; color: #000000">25.19%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="2020  wealth_group">Upper-Middle</td>
-<td class="gt_row gt_right" headers="2020  total_plastic">6,544,651</td>
-<td class="gt_row gt_right" headers="2020  proportion" style="background-color: #FDE8E6; color: #000000">19.47%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center gt_striped" headers="2020  wealth_group">High</td>
-<td class="gt_row gt_right gt_striped" headers="2020  total_plastic">5,765,456</td>
-<td class="gt_row gt_right gt_striped" headers="2020  proportion" style="background-color: #F9CAC6; color: #000000">17.16%</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
-    <template>Expand</template>
-    <span class="bslib-full-screen-enter badge rounded-pill">
-        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
-    </span>
-</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
-</div>
-<div id="tabset-3-4" class="tab-pane html-fill-item html-fill-container" role="tabpanel" aria-labelledby="tabset-3-4-tab">
-<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
-<div class="card-body html-fill-item html-fill-container">
-<div class="cell-output-display html-fill-item html-fill-container">
-<div id="xpiklfdphr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;" class="html-fill-item html-fill-container">
-<style>#xpiklfdphr table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#xpiklfdphr thead, #xpiklfdphr tbody, #xpiklfdphr tfoot, #xpiklfdphr tr, #xpiklfdphr td, #xpiklfdphr th {
-  border-style: none;
-}
-
-#xpiklfdphr p {
-  margin: 0;
-  padding: 0;
-}
-
-#xpiklfdphr .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#xpiklfdphr .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#xpiklfdphr .gt_title {
-  color: #FFFFFF;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#xpiklfdphr .gt_subtitle {
-  color: #FFFFFF;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#xpiklfdphr .gt_heading {
-  background-color: #EB6864;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#xpiklfdphr .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#xpiklfdphr .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#xpiklfdphr .gt_col_heading {
-  color: #333333;
-  background-color: #D3D3D3;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#xpiklfdphr .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #D3D3D3;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#xpiklfdphr .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#xpiklfdphr .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#xpiklfdphr .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#xpiklfdphr .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#xpiklfdphr .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#xpiklfdphr .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#xpiklfdphr .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#xpiklfdphr .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#xpiklfdphr .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#xpiklfdphr .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#xpiklfdphr .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#xpiklfdphr .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#xpiklfdphr .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#xpiklfdphr .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#xpiklfdphr .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#xpiklfdphr .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#xpiklfdphr .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#xpiklfdphr .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#xpiklfdphr .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#xpiklfdphr .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#xpiklfdphr .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#xpiklfdphr .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#xpiklfdphr .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#xpiklfdphr .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#xpiklfdphr .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#xpiklfdphr .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#xpiklfdphr .gt_left {
-  text-align: left;
-}
-
-#xpiklfdphr .gt_center {
-  text-align: center;
-}
-
-#xpiklfdphr .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#xpiklfdphr .gt_font_normal {
-  font-weight: normal;
-}
-
-#xpiklfdphr .gt_font_bold {
-  font-weight: bold;
-}
-
-#xpiklfdphr .gt_font_italic {
-  font-style: italic;
-}
-
-#xpiklfdphr .gt_super {
-  font-size: 65%;
-}
-
-#xpiklfdphr .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#xpiklfdphr .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#xpiklfdphr .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#xpiklfdphr .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#xpiklfdphr .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#xpiklfdphr .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#xpiklfdphr .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#xpiklfdphr .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#xpiklfdphr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
-<thead>
-<tr class="gt_heading header">
-<td colspan="4" class="gt_heading gt_title gt_font_normal"><strong>Chi-square Test of Plastic Waste Type by Income Group</strong></td>
-</tr>
-<tr class="gt_heading even">
-<td colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: #333333">Testing whether plastic waste type distribution differs across income levels</td>
-</tr>
-<tr class="gt_col_headings header">
-<th id="method" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: #333333" scope="col">Test</th>
-<th id="parameter" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: #333333" scope="col">Degrees of freedom</th>
-<th id="statistic" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: #333333" scope="col">Chi-square statistic</th>
-<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: #333333" scope="col">p-value</th>
-</tr>
-</thead>
-<tbody class="gt_table_body">
-<tr class="odd">
-<td class="gt_row gt_left" headers="method">Pearson's Chi-squared test</td>
-<td class="gt_row gt_right" headers="parameter">24.00</td>
-<td class="gt_row gt_right" headers="statistic">126,217.89</td>
-<td class="gt_row gt_left" headers="p.value">&lt; 0.001</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-<p>Chi-square test of independence for plastic type distribution by wealth group.</p>
+<img src="Project_2_Dashboard_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-dashboard-img-contain">
 </div>
 </div>
 <bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
@@ -2313,24 +1284,9 @@ grid-auto-rows: minmax(0, 1fr);">
     <span class="bslib-full-screen-enter badge rounded-pill">
         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
     </span>
-</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
-</div>
-</div>
-<div class="bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
-grid-auto-rows: minmax(0, 1fr);">
-<div class="bslib-grid" style="display: grid; grid-template-rows: minmax(3em, max-content); grid-auto-columns: minmax(0, 1fr);">
-<div class="card bslib-card html-fill-container" data-fill="false" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
-<div class="card-body html-fill-item html-fill-container">
-<p>The first research question is best answered with composition-based summaries because the goal is to compare the mix of plastic types rather than raw totals alone. The second research question compares plastic waste patterns across income groups created from GDP rankings.</p>
-</div>
-<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
-    <template>Expand</template>
-    <span class="bslib-full-screen-enter badge rounded-pill">
-        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
-    </span>
-</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
-<div id="3ade8a4a-fb1d-4a6c-8409-ac45482d5fc9" class="hidden">
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div id="3ade8a4a-fb1d-4a6c-8409-ac45482d5fc9" class="hidden html-fill-item html-fill-container">
 
+</div>
 </div>
 </div>
 </div>
