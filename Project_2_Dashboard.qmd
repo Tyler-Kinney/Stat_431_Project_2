@@ -9,7 +9,7 @@ format:
     logo: plastic-logo.png
     nav-buttons:
       - icon: github
-        href: https://github.com/Tyler-Kinney/STAT-431-Project-1
+        href: https://github.com/Tyler-Kinney/Stat_431_Project_2
         aria-label: GitHub Repository
       - icon: envelope
         href: mailto:kinneytyler101@gmail.com
@@ -44,7 +44,7 @@ library(tidytuesdayR)
 tuesdata <- tidytuesdayR::tt_load('2021-01-26')
 plastics <- tuesdata$plastics
 
-journal_colors <- c("#FFFFFF", "#F8D6D6", "#F1ADAD", "#EA8585", "#E35C5C", "#DE4C4C", "#D95C5C")
+journal_colors <- c("#FDECEC", "#F8D6D6", "#F1ADAD", "#EA8585", "#E35C5C", "#DE4C4C", "#D95C5C")
 ```
 
 ## Row {height="22%"}
