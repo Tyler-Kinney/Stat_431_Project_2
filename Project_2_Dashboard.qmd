@@ -1,5 +1,5 @@
 ---
-title: "Plastic Waste Dashboard"
+title: "Plastic During COVID"
 author: "Tyler Kinney, Greyson Ballesteros"
 format:
   dashboard:
@@ -7,7 +7,6 @@ format:
     orientation: rows
     scrolling: true
     logo: plastic-logo.png
-    pages: true
     nav-buttons:
       - icon: github
         href: https://github.com/Tyler-Kinney/STAT-431-Project-1
@@ -15,6 +14,9 @@ format:
       - icon: envelope
         href: mailto:kinneytyler101@gmail.com
         aria-label: Email
+      - icon: linkedin
+        href: https://www.linkedin.com/in/tyler-kinney-7208303a2
+        aria-label: LinkedIn Profile
 execute:
   echo: false
   error: false
@@ -23,21 +25,24 @@ execute:
 editor: source
 ---
 
+
 ```{r}
 #| label: packages-setup
 library(tidyverse)
-library(glue)
 library(here)
-library(jsonlite)
 library(purrr)
 library(ggplot2)
 library(ggridges)
 library(gt)
 library(scales)
 library(ggtext)
-library(tidytuesdayR)
-library(plotly)
+library(ggrepel)
+library(gganimate)
+library(gifski)
 library(leaflet)
+library(sf)
+library(rnaturalearth)
+library(glue)
 ```
 
 ```{r}
@@ -47,35 +52,116 @@ library(leaflet)
 tuesdata <- tidytuesdayR::tt_load('2021-01-26')
 plastics <- tuesdata$plastics
 
-journal_colors <- c("#FFFFFF", "#F8D6D6", "#F1ADAD", "#EA8585", "#E35C5C", "#DE4C4C", "#D95C5C")
+journal_colors <- c("#FDECEC", "#F8D6D6", "#F1ADAD", "#EA8585", "#E35C5C", "#DE4C4C", "#D95C5C")
 ```
-# Plastic Analysis
 
-## Row {height="22%"}
+# Changing Plastic Type
+## Row 1 {height=10%}
 
+### Column 1 {.tabset}
+#### Intro
+The introduction of novel coronavirus became a defining moment in global history when it made its first public appearance in Wuhan, China. The epidemic spread like wildfire, and has altered the course of humanity to this day. As the virus took its toll, humans began exhausting its resources like never before; one of these resources, of course, was plastics. As students that survived through the peak of COVID-19, we were interested in how the usage of plastics changed from 2019 to 2020, a span of years that has become one of the most relevant turning points in our lives.
+
+This led us to ask: Have the types of plastics that are being used changed significantly from 2019 to 2020?
+
+#### Data Background
+In order to answer our research question we obtained plastics data from Break Free from Plastic (BFFP) courtesy of Sarah Sauve. The observational unit is one cleaning project. The data contains variables relating to types of plastic, where the plastic comes from, and country. The columns in the data have been assigned certain classes like "double" or "character". The creators of the data set also cleaned the names of the columns using the janitor package. They also took two data sets from 2019 and 2020 and bound the rows together. The audit was completed in October of 2020, implying that the data was collected during that time frame. The data was collected as part of a bigger project to understand the sources of plastic in different cities.
+
+## Row 2
+
+### Column 1 {.tabset}
+#### Animated Bar Chart
+```{r}
+#| label: rq1-dynamic-visualization
+#| fig-alt: "Animated bar chart showing proportions of plastic types in 2019 and 2020."
+#| fig-cap: "Animated comparison of global plastic type composition from 2019 to 2020."
+global_plot_data <- plastics |>
+  filter(parent_company != "Grand Total") |>
+  pivot_longer(
+    cols = c(hdpe, ldpe, o, pet, pp, ps, pvc),
+    names_to = "plastic_type",
+    values_to = "plastic_amount"
+  ) |>
+  group_by(year, plastic_type) |>
+  summarize(total = sum(plastic_amount, na.rm = TRUE), .groups = "drop") |>
+  group_by(year) |>
+  mutate(proportion = total / sum(total)) |>
+  ungroup()
+
+global_plot <- global_plot_data |>
+  ggplot(aes(
+    x = plastic_type,
+    y = proportion,
+    fill = plastic_type
+  )) +
+  geom_col(show.legend = FALSE) +
+  scale_y_continuous(labels = label_percent()) +
+  scale_fill_manual(values = journal_colors) +
+  labs(
+    title = "Plastic Composition in {closest_state}",
+    x = "Plastic Type",
+    y = "Proportion"
+  ) +
+  theme_light() +
+  theme(
+    plot.title = element_text(face = "bold", size = 16)
+  ) +
+  transition_states(
+    states = year,
+    transition_length = 2,
+    state_length = 1
+  ) +
+  ease_aes("cubic-in-out")
+
+animate(global_plot,
+        nframes = 80,
+        fps = 10)
+```
+
+#### Lollipop Chart
+```{r}
+#| label: rq1-slope-chart
+#| fig-alt: "Slope chart showing changes in proportions of each plastic type used from 2019 to 2020."
+#| fig-cap: "Change in plastic type composition from 2019 to 2020."
+plastics |>
+  pivot_longer(cols = hdpe:pvc,
+               names_to = "type",
+               values_to = "count") |>
+  filter(parent_company != "Grand Total",
+         !is.na(count)) |>
+  group_by(year, type) |>
+  summarize(total = sum(count, na.rm = TRUE), .groups = "drop") |>
+  group_by(year) |>
+  mutate(prop = total / sum(total)) |>
+  ungroup() |>
+  select(year, type, prop) |>
+  pivot_wider(names_from = year,
+              values_from = prop,
+              names_prefix = "year_") |>
+  mutate(change = year_2020 - year_2019,
+         type = reorder(type, change)) |>
+  ggplot() +
+  geom_segment(aes(x = year_2019, xend = year_2020,
+                   y = type, yend = type),
+               color = "#333333",
+               linewidth = 1) +
+  geom_point(aes(x = year_2019, y = type), color = "grey", size = 3) +
+  geom_point(aes(x = year_2020, y = type), color = "#EB6864", size = 3) +
+  scale_x_continuous(labels = label_percent()) +
+  labs(title = "Change in Plastic Type Composition",
+       subtitle = "(<span style='color:grey;'>2019</span> - <span style='color:#EB6864;'>2020</span>)",
+       x = "Proportion of total plastic",
+       y = "Plastic type") +
+  theme_light() +
+  theme(plot.subtitle = element_markdown())
+```
+
+### Column 2
+#### Interpretation and Table
 ::: {.card}
-### Project Purpose
+Both visuals show the same overall pattern: plastic type composition changed noticeably from 2019 to 2020. The animated chart makes the shift easier to see as a before-and-after transition, while the slope chart shows the direction and size of each plastic type's change more directly. The visuals show a clear shift in plastic composition from 2019 to 2020. The **“other”** category decreases substantially (-22.13%), while **polypropylene** (PP) increases the most (+13.62%). Several other plastic types show smaller increases, and PET remains relatively stable. Overall, plastic waste becomes more concentrated in specific types rather than the broad “other” category.
 
-This dashboard explores global plastic waste patterns using the Break Free From Plastic brand audit data from 2019 and 2020.
-
-**RQ1:** Has the composition of plastic types changed from 2019 to 2020?  
-**RQ2:** How does plastic waste differ across country income levels?
-:::
-
-::: {.card}
-### Data Sources
-
-The dashboard combines Break Free From Plastic data from TidyTuesday with GDP data, REST Countries API country-level information, and country code data used to connect countries to API records.
-:::
-
-## Row {height="70%"}
-
-### RQ1: Plastic Type Composition
-
-::: {.panel-tabset}
-
-#### Proportion Summary
-
+here are the values of the changes seen in both visuals:
 ```{r}
 #| label: rq1-proportion-summary
 plastic_types <- c("hdpe", "ldpe", "pet", "pp", "ps", "pvc", "o")
@@ -124,50 +210,16 @@ map_dfr(plastic_types, Prop_change) |>
                palette = c("lightgreen", "white", "#D95C5C"),
                domain = NULL))
 ```
+:::
 
-#### Slope Chart
+## Row 3
 
+### Column 1
+#### YoY
 ```{r}
-#| label: rq1-slope-chart
-#| fig-alt: "Slope chart showing changes in proportions of each plastic type used from 2019 to 2020."
-#| fig-cap: "Change in plastic type composition from 2019 to 2020."
-plastics |>
-  pivot_longer(cols = hdpe:pvc,
-               names_to = "type",
-               values_to = "count") |>
-  filter(parent_company != "Grand Total",
-         !is.na(count)) |>
-  group_by(year, type) |>
-  summarize(total = sum(count, na.rm = TRUE), .groups = "drop") |>
-  group_by(year) |>
-  mutate(prop = total / sum(total)) |>
-  ungroup() |>
-  select(year, type, prop) |>
-  pivot_wider(names_from = year,
-              values_from = prop,
-              names_prefix = "year_") |>
-  mutate(change = year_2020 - year_2019,
-         type = reorder(type, change)) |>
-  ggplot() +
-  geom_segment(aes(x = year_2019, xend = year_2020,
-                   y = type, yend = type),
-               color = "#333333",
-               linewidth = 1) +
-  geom_point(aes(x = year_2019, y = type), color = "grey", size = 3) +
-  geom_point(aes(x = year_2020, y = type), color = "#EB6864", size = 3) +
-  scale_x_continuous(labels = scales::label_percent()) +
-  labs(title = "Change in Plastic Type Composition",
-       subtitle = "(<span style='color:grey;'>2019</span> - <span style='color:#EB6864;'>2020</span>)",
-       x = "Proportion of total plastic",
-       y = "Plastic type") +
-  theme_light() +
-  theme(plot.subtitle = element_markdown())
-```
+#| label: Summary 2 (non-modified)
+#| fig-alt: "Table displaying year over year increase in plastic type usage in 2019 and 2020."
 
-#### Year-Over-Year Summary
-
-```{r}
-#| label: rq1-yoy-summary
 plastics |>
   filter(parent_company != "Grand Total") |>
   pivot_longer(cols = c(hdpe, ldpe, o, pet, pp, ps, pvc, grand_total),
@@ -183,9 +235,10 @@ plastics |>
   arrange(`2019_2020_YoY`) |>
   ungroup() |>
   gt() |>
-  tab_header(title = md("**Year-Over-Year Increase in Plastic Use**"),
-             subtitle = "Calculated from 2020 compared with 2019") |>
-  fmt_percent(columns = `2019_2020_YoY`, decimals = 2) |>
+  tab_header(title = md("**Year Over Year Increase in Types of Plastic Use**"),
+             subtitle = "Calculated from 2020") |>
+  fmt_percent(columns = `2019_2020_YoY`,
+              decimals = 2) |>
   cols_label(plastic_type = "Type",
              `2019_2020_YoY` = "YoY Increase") |>
   tab_options(heading.background.color = "#EB6864",
@@ -195,112 +248,88 @@ plastics |>
   tab_style(style = cell_text(weight = "bold"),
             locations = cells_column_labels(everything())) |>
   tab_style(style = cell_borders(sides = "bottom",
-                                 color = "#333333",
-                                 weight = px(2)),
+            color = "#333333",
+            weight = px(2)),
             locations = list(cells_column_labels(), cells_title(groups = "subtitle"))) |>
   data_color(columns = `2019_2020_YoY`,
              colors = col_numeric(
-               palette = c("lightgreen", "white", "#D95C5C"),
-               domain = NULL))
+             palette = c("lightgreen", "white", "#D95C5C"),
+             domain = NULL))
 ```
+### Column 2
+#### Interpretation
 
-#### Composition by Year
+The year-over-year results reinforce the patterns seen in the animated and slope chart visuals. While those visuals show that polypropylene (PP) and several other plastics increase in proportion, the YoY table highlights how large those increases are in relative terms, with **PP** and **PVC** showing the most dramatic growth (+243.12% and +364.36% respectively). At the same time, the substantial decrease in the **“other”** category aligns with its visible decline in the earlier visuals (-48.88%).
+
+Together, these results confirm that the shift from 2019 to 2020 is not only visible in composition but also reflected in large relative changes in specific plastic types, suggesting that a few categories are driving most of the change.
+
+
+## Row 4
+
+### Column 1 
+#### Country Plot
+:::{card}
 
 ```{r}
-#| label: rq1-composition-plot
-#| fig-alt: "Segmented bar graph displaying the distribution of plastic types in 2019 and 2020."
-#| fig-cap: "Proportion of plastic types used per year from 2019 to 2020."
-plastics |>
-  pivot_longer(cols = c(hdpe, ldpe, o, pet, pp, ps, pvc),
-               names_to = "plastic_type",
-               values_to = "plastic_amount") |>
+#| label: Figure 2
+#| fig-alt: "Scatterplot comparing total plastic waste by country in 2019 and 2020, with a dashed line indicating no change between years"
+#| fig-cap: "Figure 2 compares total plastic waste by country. Each point represents a country, and countries above the dashed line reported higher plastic waste in 2020 than in 2019, while those below the line reported decreases."
+
+country_change <- plastics |>
   filter(parent_company != "Grand Total",
-         !is.na(plastic_amount)) |>
-  group_by(year, plastic_type) |>
-  summarize(total = sum(plastic_amount, na.rm = TRUE),
-            .groups = "drop") |>
-  ggplot(aes(x = factor(year), y = total, fill = plastic_type)) +
-  geom_col(position = "fill") +
-  scale_y_continuous(labels = label_percent()) +
-  scale_fill_manual(values = journal_colors) +
-  labs(title = "Proportion of Plastic Types by Year",
-       x = "Year",
-       y = "Proportion",
-       fill = "Plastic Type") +
+         country != "EMPTY") |>
+  group_by(country, year) |>
+  summarize(total_plastic = sum(grand_total, na.rm = TRUE), .groups = "drop") |>
+  pivot_wider(names_from = year, values_from = total_plastic) |>
+  filter(!is.na(`2019`), !is.na(`2020`))
+
+outliers <- country_change |>
+  slice_max(`2020`, n = 2)
+
+country_change |>
+  ggplot(aes(x = `2019`, y = `2020`)) +
+  geom_point(color = "#D95C5C", alpha = 0.7, size = 3) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
+  geom_text_repel(data = outliers,
+                  aes(label = country),
+                  size = 4,
+                  fontface = "bold") +
+  labs(title = "Plastic Waste by Country Before and During COVID",
+       subtitle = "Countries above the dashed line reported more plastic waste in 2020 than in 2019",
+       x = "Total Plastic Waste in 2019",
+       y = "Total Plastic Waste in 2020") +
   theme_light()
 ```
-#### Plastic Type Output by Year
 
-```{r}
-#| label: rq1-dynamic-visualization
-#| fig-alt: "Bar chart comparing proportions of plastic types for 2019 and 2020."
-#| fig-cap: "Proportion of global plastic types in 2019 and 2020, showing changes in composition over time."
-#| fig-height: 6
-#| fig-width: 5
-global_plot_data <- plastics |>
-  filter(parent_company != "Grand Total") |>
-  pivot_longer(
-    cols = c(hdpe, ldpe, o, pet, pp, ps, pvc),
-    names_to = "plastic_type",
-    values_to = "plastic_amount"
-  ) |>
-  group_by(year, plastic_type) |>
-  summarize(total = sum(plastic_amount, na.rm = TRUE), .groups = "drop") |>
-  group_by(year) |>
-  mutate(proportion = total / sum(total)) |>
-  ungroup()
+This scatter plot shows us that most countries experienced relatively small changes in plastic waste between 2019 and 2020, as indicated by the clustering of points near the dashed line. However, a few countries most notably the **Philippines** and **Switzerland** stand out with substantially larger increases. This suggests that while global plastic waste patterns did shift during COVID-19, much of the change may be driven by a small number of outlier countries.
 
-global_plot <- global_plot_data |>
-  ggplot(aes(
-    x = plastic_type,
-    y = proportion,
-    fill = factor(year),
-    text = paste(
-      "Year:", year,
-      "<br>Plastic type:", plastic_type,
-      "<br>Proportion:", scales::percent(proportion, accuracy = 0.1)
-    )
-  )) +
-  geom_col(position = "dodge") +
-  scale_y_continuous(labels = scales::label_percent()) +
-  scale_fill_manual(values = c("#F1ADAD", "#EB6864")) +
-  labs(
-    title = "Global Plastic Type Composition",
-    x = "Plastic Type",
-    y = "Proportion",
-    fill = "Year"
-  ) +
-  theme_light() +
-  theme(plot.title = element_text(face = "bold"))
-
-ggplotly(global_plot, tooltip = "text")
-```
 :::
+
+## Row 5
+**Conclusion**
+
+While the global analysis reveals clear shifts in plastic composition from 2019 to 2020, it does not explain whether these changes occurred consistently across all countries or were driven by specific regions. The country-level results suggest that a small number of countries may be responsible for much of the observed change.
+
+To better understand how plastic usage evolved at a more localized level, we focus on a single country case study. By examining changes within one country, we can explore how plastic composition shifted in response to the COVID-19 pandemic in greater detail.
+
 
 # China Case Study
 
-## Row {height="18%"}
+## Row
 
 ::: {.card}
 ### Why China?
 
-China was selected as a case of change because its plastic composition shifts substantially from 2019 to 2020, particularly with a large increase in the “other” plastic category and a decline in PET. These changes highlight how plastic waste composition can vary over time within a single country. Additionally, we were interested in investigating how the COVID-19 pandemic may have impacted China specifically and influenced patterns of plastic usage and waste.
-
-:::
-
-## Row {height="82%"}
-
-::: {.panel-tabset}
-
-#### China Composition
+China was selected as a case of change because its plastic composition shifts substantially from 2019 to 2020, particularly with a large increase in the **“other”** plastic category and a decline in **PET**, which seems to differ greatly from what we observed in border study. These changes highlight how plastic waste composition can vary over time within a single country as illustrated by the animated bar graph below. Additionally, we were interested in investigating how the COVID-19 pandemic may have impacted China specifically and influenced patterns of plastic usage and waste.
 
 ```{r}
-#| fig-height: 3
-#| fig-width: 8
+#| out-width: 100%
 
 china_data <- plastics |>
-  filter(country == "China",
-         parent_company != "Grand Total") |>
+  filter(
+    country == "China",
+    parent_company != "Grand Total"
+  ) |>
   pivot_longer(
     cols = c(hdpe, ldpe, o, pet, pp, ps, pvc),
     names_to = "plastic_type",
@@ -315,22 +344,107 @@ china_data <- plastics |>
   mutate(proportion = total / sum(total)) |>
   ungroup()
 
-china_data |>
-  ggplot(aes(x = plastic_type, y = proportion, fill = factor(year))) +
-  geom_col(position = "dodge") +
-  scale_y_continuous(labels = scales::label_percent()) +
-  scale_fill_manual(values = c("#F1ADAD", "#EB6864")) +
+china_plot <- china_data |>
+  ggplot(aes(
+    x = plastic_type,
+    y = proportion,
+    fill = plastic_type
+  )) +
+  geom_col(show.legend = FALSE) +
+  scale_y_continuous(labels = label_percent()) +
+  scale_fill_manual(values = journal_colors) +
   labs(
-    title = "Plastic Type Composition in China (2019 vs 2020)",
+    title = "China Plastic Composition in {closest_state}",
     x = "Plastic Type",
-    y = "Proportion",
-    fill = "Year"
+    y = "Proportion"
   ) +
   theme_light() +
   theme(
-    plot.title = element_text(face = "bold"),
-    legend.position = "right"
-  )
+    plot.title = element_text(face = "bold", size = 16)
+  ) +
+  transition_states(
+    states = year,
+    transition_length = 2,
+    state_length = 1
+  ) +
+  ease_aes("cubic-in-out")
+
+animate(
+  china_plot,
+  nframes = 80,
+  fps = 10)
+```
+:::
+## Row
+
+::: {.panel-tabset}
+#### Data Background
+The geographic boundaries used in this Province COVID-19 Cases map come from the Natural Earth dataset via the R package rnaturalearth, accessed through the rnaturalearth package in R. This dataset provides standardized, publicly available map data at the country and subnational (province) level. We used province-level boundaries for China to spatially visualize COVID-19 case data and examine how pandemic intensity varied across regions.
+
+The COVID-19 data used in this analysis comes from the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE) COVID-19 Data Repository, which collected global case data from January 22, 2020 through March 10, 2023. This dataset aggregates information from multiple official sources and provides detailed case counts at both global and subnational levels. We use province-level data for China to examine how the intensity of COVID-19 varied geographically during 2020.
+
+#### Province COVID-19 Cases
+```{r}
+# Data extracted from many places including the WHO, Collected by JHU
+# https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv
+china_cases <- read.csv(here('time_series_covid19_confirmed_global.csv')) |>
+  filter(Country.Region == 'China')
+
+china_cases_clean <- china_cases |>
+  select(-Lat, -Long, -Country.Region) |>
+  pivot_longer(cols = -Province.State,
+               names_to = "date",
+               values_to = "cases") |>
+  mutate(date = str_remove(date, "^X"),
+         date = mdy(date)) |>
+  arrange(Province.State, date) |>
+  group_by(Province.State) |>
+  mutate(new_cases = cases - lag(cases, default = 0)) |>
+  ungroup() |>
+  group_by(Province.State) |>
+  summarize(total_new_cases = sum(new_cases, na.rm = TRUE),
+            peak_cases = max(new_cases, na.rm = TRUE),
+            .groups = "drop") |>
+  rename(province = Province.State) |>
+  arrange(desc(total_new_cases)) |>
+  mutate(province = str_trim(province),
+         province = case_when(province %in% c("Hong Kong", "Macau", "Unknown") ~ NA, TRUE ~ province),
+         province = case_when(province == "Inner Mongolia" ~ "Inner Mongol",
+                              province == "Tibet" ~ "Xizang",
+                              TRUE ~ province)) |>
+  filter(!is.na(province))
+  
+# From the rnaturalearth package  
+china_map <- ne_states(country = "china", returnclass = "sf") |>
+  select(name, geometry)
+
+Coords_Cases_China <- china_map |>
+  inner_join(china_cases_clean, by= join_by(name == province))
+
+pal <- colorNumeric(palette = journal_colors,
+                    domain = Coords_Cases_China$total_new_cases)
+
+Coords_Cases_China |>
+  leaflet() |>
+  addTiles() |>
+  addControl(html = "COVID-19 Cases by Province in China (2020)",
+             position = "topright")  |>
+  addPolygons(fillColor = ~pal(total_new_cases),
+              color = "lightgrey",
+              weight = 1,
+              fillOpacity = 1,
+              popup = ~glue("<strong>{name}</strong><br> Cases: {comma(total_new_cases)}"),
+              label = ~glue("{name}: {comma(total_new_cases)}")) |>
+  addLegend(pal = pal,
+            values = ~total_new_cases,
+            title = "COVID Cases",
+            position = "bottomright")
 ```
 
+#### How COVID Shaped Plastic Use
+The Province COVID-19 Cases map shows that COVID-19 cases were concentrated in specific regions of China, particularly in **Hubei** and **Guangdong** provinces (72,131 and 103,248 cases respectively). These regions likely experienced stricter lockdown measures, increased reliance on delivery services, and greater use of personal protective equipment like masks.
+
+These changes in daily behavior may have contributed to the shifts in plastic types used by China. Increased food delivery, online shopping, and medical supply consumption would lead to greater use of mixed or less easily categorized plastics, which may explain the large increase in the **“other”** category. At the same time, disruptions to manufacturing and recycling systems, as well as changes in consumer demand, may have reduced the relative use of more standardized plastics such as **PET**, which is commonly used in beverage packaging.
+
+Together, the geographic concentration of COVID-19 cases attempts to explain why China’s plastic composition shifted differently from the global pattern, highlighting how localized pandemic impacts can influence material usage and waste generation.
 :::
