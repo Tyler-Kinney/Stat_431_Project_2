@@ -23,6 +23,7 @@ execute:
   warning: false
   message: false
 editor: source
+server: shiny
 ---
 
 
@@ -67,7 +68,7 @@ This led us to ask: Have the types of plastics that are being used changed signi
 #### Data Background
 In order to answer our research question we obtained plastics data from Break Free from Plastic (BFFP) courtesy of Sarah Sauve. The observational unit is one cleaning project. The data contains variables relating to types of plastic, where the plastic comes from, and country. The columns in the data have been assigned certain classes like "double" or "character". The creators of the data set also cleaned the names of the columns using the janitor package. They also took two data sets from 2019 and 2020 and bound the rows together. The audit was completed in October of 2020, implying that the data was collected during that time frame. The data was collected as part of a bigger project to understand the sources of plastic in different cities.
 
-## Row 2
+## Row 2 {height = 10%}
 
 ### Column 1 {.tabset}
 #### Animated Bar Chart
@@ -205,6 +206,9 @@ map_dfr(plastic_types, Prop_change) |>
                                  color = "#333333",
                                  weight = px(2)),
             locations = list(cells_column_labels(), cells_title(groups = "subtitle"))) |>
+  tab_options(
+    data_row.padding = px(18),
+    heading.padding = px(10)) |>
   data_color(columns = change,
              colors = col_numeric(
                palette = c("lightgreen", "white", "#D95C5C"),
@@ -216,6 +220,8 @@ map_dfr(plastic_types, Prop_change) |>
 
 ### Column 1
 #### YoY
+:::{.card}
+
 ```{r}
 #| label: Summary 2 (non-modified)
 #| fig-alt: "Table displaying year over year increase in plastic type usage in 2019 and 2020."
@@ -251,22 +257,24 @@ plastics |>
             color = "#333333",
             weight = px(2)),
             locations = list(cells_column_labels(), cells_title(groups = "subtitle"))) |>
+  tab_options(
+    data_row.padding = px(16),
+    heading.padding = px(10)) |>
   data_color(columns = `2019_2020_YoY`,
              colors = col_numeric(
              palette = c("lightgreen", "white", "#D95C5C"),
              domain = NULL))
 ```
-### Column 2
+
 #### Interpretation
 
 The year-over-year results reinforce the patterns seen in the animated and slope chart visuals. While those visuals show that polypropylene (PP) and several other plastics increase in proportion, the YoY table highlights how large those increases are in relative terms, with **PP** and **PVC** showing the most dramatic growth (+243.12% and +364.36% respectively). At the same time, the substantial decrease in the **“other”** category aligns with its visible decline in the earlier visuals (-48.88%).
 
 Together, these results confirm that the shift from 2019 to 2020 is not only visible in composition but also reflected in large relative changes in specific plastic types, suggesting that a few categories are driving most of the change.
 
+:::
 
-## Row 4
-
-### Column 1 
+### Column 2
 #### Country Plot
 :::{card}
 
@@ -315,12 +323,13 @@ To better understand how plastic usage evolved at a more localized level, we foc
 
 # China Case Study
 
-## Row
+## Row 1
 
 ::: {.card}
 ### Why China?
 
 China was selected as a case of change because its plastic composition shifts substantially from 2019 to 2020, particularly with a large increase in the **“other”** plastic category and a decline in **PET**, which seems to differ greatly from what we observed in border study. These changes highlight how plastic waste composition can vary over time within a single country as illustrated by the animated bar graph below. Additionally, we were interested in investigating how the COVID-19 pandemic may have impacted China specifically and influenced patterns of plastic usage and waste.
+
 
 ```{r}
 #| out-width: 100%
@@ -375,7 +384,7 @@ animate(
   fps = 10)
 ```
 :::
-## Row
+### Column 2
 
 ::: {.panel-tabset}
 #### Data Background
@@ -448,3 +457,4 @@ These changes in daily behavior may have contributed to the shifts in plastic ty
 
 Together, the geographic concentration of COVID-19 cases attempts to explain why China’s plastic composition shifted differently from the global pattern, highlighting how localized pandemic impacts can influence material usage and waste generation.
 :::
+
