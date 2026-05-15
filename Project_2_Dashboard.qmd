@@ -44,10 +44,12 @@ library(leaflet)
 library(sf)
 library(rnaturalearth)
 library(glue)
+library(shiny)
 ```
 
 ```{r}
 #| label: load-plastic-data
+#| context: setup
 # Break Free From Plastic data from TidyTuesday
 # https://github.com/rfordatascience/tidytuesday/tree/main/data/2021/2021-01-26
 tuesdata <- tidytuesdayR::tt_load('2021-01-26')
@@ -73,50 +75,92 @@ In order to answer our research question we obtained plastics data from Break Fr
 ### Column 1 {.tabset}
 #### Animated Bar Chart
 ```{r}
-#| label: rq1-dynamic-visualization
-#| fig-alt: "Animated bar chart showing proportions of plastic types in 2019 and 2020."
-#| fig-cap: "Animated comparison of global plastic type composition from 2019 to 2020."
-global_plot_data <- plastics |>
-  filter(parent_company != "Grand Total") |>
-  pivot_longer(
-    cols = c(hdpe, ldpe, o, pet, pp, ps, pvc),
-    names_to = "plastic_type",
-    values_to = "plastic_amount"
-  ) |>
-  group_by(year, plastic_type) |>
-  summarize(total = sum(plastic_amount, na.rm = TRUE), .groups = "drop") |>
-  group_by(year) |>
-  mutate(proportion = total / sum(total)) |>
-  ungroup()
+checkboxGroupInput(
+  inputId = "plastic_filter",
+  label = "Select plastic types to display:",
+  choices = c("hdpe", "ldpe", "o", "pet", "pp", "ps", "pvc"),
+  selected = c("hdpe", "ldpe", "o", "pet", "pp", "ps", "pvc"),
+  inline = TRUE
+)
 
-global_plot <- global_plot_data |>
-  ggplot(aes(
-    x = plastic_type,
-    y = proportion,
-    fill = plastic_type
-  )) +
-  geom_col(show.legend = FALSE) +
-  scale_y_continuous(labels = label_percent()) +
-  scale_fill_manual(values = journal_colors) +
-  labs(
-    title = "Plastic Composition in {closest_state}",
-    x = "Plastic Type",
-    y = "Proportion"
-  ) +
-  theme_light() +
-  theme(
-    plot.title = element_text(face = "bold", size = 16)
-  ) +
-  transition_states(
-    states = year,
-    transition_length = 2,
-    state_length = 1
-  ) +
-  ease_aes("cubic-in-out")
+imageOutput("animated_plastic_plot")
+```
 
-animate(global_plot,
-        nframes = 80,
-        fps = 10)
+```{r}
+#| context: server
+
+library(gganimate)
+library(gifski)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(scales)
+
+output$animated_plastic_plot <- renderImage({
+
+  req(input$plastic_filter)
+
+  filtered_plot_data <- plastics |>
+    filter(parent_company != "Grand Total") |>
+    pivot_longer(
+      cols = c(hdpe, ldpe, o, pet, pp, ps, pvc),
+      names_to = "plastic_type",
+      values_to = "plastic_amount"
+    ) |>
+    filter(plastic_type %in% input$plastic_filter) |>
+    group_by(year, plastic_type) |>
+    summarize(total = sum(plastic_amount, na.rm = TRUE), .groups = "drop") |>
+    group_by(year) |>
+    mutate(proportion = total / sum(total)) |>
+    ungroup()
+
+  animated_plot <- filtered_plot_data |>
+    ggplot(aes(
+      x = plastic_type,
+      y = proportion,
+      fill = plastic_type
+    )) +
+    geom_col(show.legend = FALSE) +
+    scale_y_continuous(labels = label_percent()) +
+    scale_fill_manual(values = journal_colors) +
+    labs(
+      title = "Plastic Composition in {closest_state}",
+      x = "Plastic Type",
+      y = "Proportion"
+    ) +
+    theme_light() +
+    theme(
+      plot.title = element_text(face = "bold", size = 20),
+      axis.text.x = element_text(size = 14),
+      axis.text.y = element_text(size = 14),
+      axis.title.x = element_text(size = 18),
+      axis.title.y = element_text(size = 18)
+    ) +
+    transition_states(
+      states = year,
+      transition_length = 2,
+      state_length = 1
+    ) +
+    ease_aes("cubic-in-out")
+
+  outfile <- tempfile(fileext = ".gif")
+
+  animate(
+    animated_plot,
+    nframes = 80,
+    fps = 10,
+    renderer = gifski_renderer(outfile)
+  )
+
+  list(
+    src = outfile,
+    contentType = "image/gif",
+    width = 700,
+    height = 550,
+    alt = "Animated bar chart showing selected plastic type proportions from 2019 to 2020."
+  )
+
+}, deleteFile = TRUE)
 ```
 
 #### Lollipop Chart
