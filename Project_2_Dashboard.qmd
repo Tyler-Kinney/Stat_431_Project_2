@@ -29,6 +29,7 @@ server: shiny
 
 ```{r}
 #| label: packages-setup
+
 library(tidyverse)
 library(here)
 library(purrr)
@@ -70,7 +71,7 @@ This led us to ask: Have the types of plastics that are being used changed signi
 #### Data Background
 In order to answer our research question we obtained plastics data from Break Free from Plastic (BFFP) courtesy of Sarah Sauve. The observational unit is one cleaning project. The data contains variables relating to types of plastic, where the plastic comes from, and country. The columns in the data have been assigned certain classes like "double" or "character". The creators of the data set also cleaned the names of the columns using the janitor package. They also took two data sets from 2019 and 2020 and bound the rows together. The audit was completed in October of 2020, implying that the data was collected during that time frame. The data was collected as part of a bigger project to understand the sources of plastic in different cities.
 
-## Row 2 {height = 10%}
+## Row 2
 
 ### Column 1 {.tabset}
 #### Animated Bar Chart
@@ -88,17 +89,17 @@ imageOutput("animated_plastic_plot")
 
 ```{r}
 #| context: server
-
+library(tidyverse)
 library(gganimate)
 library(gifski)
-library(ggplot2)
-library(dplyr)
-library(tidyr)
+library(shiny)
 library(scales)
 
 output$animated_plastic_plot <- renderImage({
 
   req(input$plastic_filter)
+
+  outfile <- tempfile(fileext = ".gif")
 
   filtered_plot_data <- plastics |>
     filter(parent_company != "Grand Total") |>
@@ -108,57 +109,56 @@ output$animated_plastic_plot <- renderImage({
       values_to = "plastic_amount"
     ) |>
     filter(plastic_type %in% input$plastic_filter) |>
+    mutate(plastic_type = factor(plastic_type, levels = input$plastic_filter)) |>
     group_by(year, plastic_type) |>
     summarize(total = sum(plastic_amount, na.rm = TRUE), .groups = "drop") |>
     group_by(year) |>
     mutate(proportion = total / sum(total)) |>
     ungroup()
 
-  animated_plot <- filtered_plot_data |>
-    ggplot(aes(
-      x = plastic_type,
-      y = proportion,
-      fill = plastic_type
-    )) +
-    geom_col(show.legend = FALSE) +
-    scale_y_continuous(labels = label_percent()) +
-    scale_fill_manual(values = journal_colors) +
-    labs(
-      title = "Plastic Composition in {closest_state}",
-      x = "Plastic Type",
-      y = "Proportion"
-    ) +
-    theme_light() +
-    theme(
-      plot.title = element_text(face = "bold", size = 20),
-      axis.text.x = element_text(size = 14),
-      axis.text.y = element_text(size = 14),
-      axis.title.x = element_text(size = 18),
-      axis.title.y = element_text(size = 18)
-    ) +
-    transition_states(
-      states = year,
-      transition_length = 2,
-      state_length = 1
-    ) +
-    ease_aes("cubic-in-out")
+  validate(
+    need(nrow(filtered_plot_data) > 0,
+         "No data available for selected plastic types.")
+  )
 
-  outfile <- tempfile(fileext = ".gif")
+plastic_choices <- c("hdpe", "ldpe", "o", "pet", "pp", "ps", "pvc")
+
+animated_plot <- filtered_plot_data |>
+  ggplot(aes(
+    x = plastic_type,
+    y = proportion,
+    fill = plastic_type
+  )) +
+  geom_col(show.legend = FALSE) +
+  scale_y_continuous(labels = label_percent()) +
+  scale_fill_manual(
+    values = setNames(journal_colors, plastic_choices)
+  ) +
+  labs(
+    title = "Plastic Composition in {closest_state}",
+    x = "Plastic Type",
+    y = "Proportion"
+  ) +
+  theme_light() +
+  transition_states(
+    states = year,
+    transition_length = 2,
+    state_length = 1
+  ) +
+  ease_aes("cubic-in-out")
 
   animate(
     animated_plot,
-    nframes = 80,
-    fps = 10,
-    renderer = gifski_renderer(outfile)
+    nframes = 64,
+    fps = 8,
+    renderer = gifski_renderer(outfile),
+    rewind = FALSE
   )
 
-  list(
-    src = outfile,
-    contentType = "image/gif",
-    width = 700,
-    height = 550,
-    alt = "Animated bar chart showing selected plastic type proportions from 2019 to 2020."
-  )
+list(
+  src = outfile,
+  contentType = "image/gif",
+  alt = "Animated plastic composition graph")
 
 }, deleteFile = TRUE)
 ```
