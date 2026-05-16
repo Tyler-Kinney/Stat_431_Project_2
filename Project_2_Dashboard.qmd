@@ -7,6 +7,7 @@ format:
     orientation: rows
     scrolling: true
     logo: plastic-logo.png
+    embed-resources: true
     nav-buttons:
       - icon: github
         href: https://github.com/Tyler-Kinney/STAT-431-Project-1
